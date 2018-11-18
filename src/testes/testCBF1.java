@@ -26,10 +26,13 @@ public class testCBF1 {
                 System.out.println("Não faz parte do conjunto\n");
             }
         }
-        System.out.println("");
-        System.out.println(">Deleting instance of word bloom");
-        cbfTesting.deleteElem("bloom");
-        System.out.println("A palavra bloom acontece, no minimo " + cbfTesting.count("bloom") + " vezes");
+        do {
+            System.out.println("");
+            System.out.println(">Deleting instance of word bloom");
+            cbfTesting.deleteElem("bloom");
+            System.out.println("A palavra bloom acontece, no minimo " + cbfTesting.count("bloom") + " vezes");
+        }while(cbfTesting.count("bloom") != 0);
+
 
     }
 }
