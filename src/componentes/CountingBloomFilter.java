@@ -97,7 +97,7 @@ public class CountingBloomFilter<E> {
      * @return Optimal value of k hash transformations to use for a certain set.
      */
     public static int calculateOptimalK(int n,int m){
-        return (int) Math.floor((n/m)*Math.log(2));     // k = (n/m)ln(2)
+        return (int) Math.floor(((double)(n/m))*Math.log(2));     // k = (n/m)ln(2)
     }
 
 
@@ -182,9 +182,9 @@ public class CountingBloomFilter<E> {
      */
     private long minValue(long[] counterArray){
         long min = Long.MAX_VALUE;
-        for(int i = 0; i < counterArray.length; i++){
-            if(counterArray[i] < min)
-                min = counterArray[i];
+        for (long aCounterArray : counterArray) {
+            if (aCounterArray < min)
+                min = aCounterArray;
         }
         return min;
     }
