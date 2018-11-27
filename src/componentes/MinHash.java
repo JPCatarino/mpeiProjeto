@@ -1,6 +1,7 @@
 package componentes;
 
 import java.util.HashSet;
+import java.util.Random;
 import java.util.Set;
 
 /**
@@ -12,7 +13,26 @@ import java.util.Set;
 
 public class MinHash {
 
-    private long SxDMatrix[][];             // matriz shingles por documentos
+    private static final int maxShingleID = 2147483647;
+    private long coeficientes[][];             // Random perms
+    private int signatureSize;
+
+    public MinHash(int signatureSize){
+        this.signatureSize = signatureSize;
+        pickCoeficientes(new Random());
+    }
+
+    public long[][] getCoeficientes() {
+        return coeficientes;
+    }
+
+    private void pickCoeficientes(Random ran){
+        coeficientes = new long[this.signatureSize][2];
+        for (int i = 0; i < this.signatureSize; i++) {
+            coeficientes[i][0] = ran.nextInt(maxShingleID - 1) + 1; // a
+            coeficientes[i][1] = ran.nextInt(maxShingleID - 1) + 1; // b
+        }
+    }
 
 
     public static double indiceJaccard(Set A, Set B){
