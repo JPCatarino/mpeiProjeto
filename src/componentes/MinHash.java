@@ -3,10 +3,10 @@ package componentes;
 import java.util.*;
 
 /**
- * MinHash é um esquema de hashing que produz assinaturas semelhastes para
+ * MinHash é um esquema de hashing que produz assinaturas semelhantes para
  * sets semelhantes.
+ * Implementação baseada no artigo MinHash Tutorial with Python Code de Chris McCormick
  * @author Jorge Catarino
- * @author Oscar Pimentel
  */
 
 public class MinHash {
@@ -16,10 +16,22 @@ public class MinHash {
     private long coeficientes[][];             // Random perms
     private int signatureSize;
 
+    /**
+     * Class Constructor for Counting Bloom Filter.
+     * @param signatureSize Size of signature/ number of hashes
+     */
+
     public MinHash(int signatureSize){
         this.signatureSize = signatureSize;
         pickCoeficientes(new Random());
     }
+
+    /**
+     * Method to calculate similarity between 2 Minhash signatures
+     * @param signature1 Signature of first set.
+     * @param signature2 Signature of second set.
+     * @return Similarity between the 2 signatures.
+     */
 
     public double calculateSimilarity(int[] signature1, int[] signature2){
         if(signature1.length != signature2.length){
@@ -37,9 +49,21 @@ public class MinHash {
 
     }
 
+    /**
+     * Getter method for hash coefs
+     * @return coeficientes
+     */
+
     public long[][] getCoeficientes() {
         return coeficientes;
     }
+
+    /**
+     * Method to calculate MinHash Signature of a given set.
+     * Converts set to ArrayList and hashes each int, getting the minimum value
+     * @param toSign Set to sign
+     * @return Hash Signature of given set
+     */
 
     public int[] getSignature(Set<Integer> toSign){
         int[] sig = new int[signatureSize];
@@ -62,6 +86,11 @@ public class MinHash {
         return sig;
     }
 
+    /**
+     * Generates random hash coeffs with a given random
+     * @param ran Random object
+     */
+
     private void pickCoeficientes(Random ran){
         coeficientes = new long[this.signatureSize][2];
         for (int i = 0; i < this.signatureSize; i++) {
@@ -69,6 +98,12 @@ public class MinHash {
             coeficientes[i][1] = ran.nextInt(maxShingleID - 1) + 1; // b
         }
     }
+
+    /**
+     * Method to shingle a String in pairs of 2 characters.
+     * @param toShingle String to shingle.
+     * @return Set with shingles
+     */
 
     public static LinkedHashSet<Integer> shingleTextPairs(String toShingle){
         Integer result[] = new Integer [toShingle.length() - 1];
@@ -83,10 +118,23 @@ public class MinHash {
         return ret;
     }
 
+    /**
+     * Hash function bases on  h = (a * x + b) % c
+     * @param i Index
+     * @param x x
+     * @return hashed value.
+     */
     // h = (a * x + b) % LARGE_PRIME
     private int hash(final int i, final int x) {
         return (int) ((coeficientes[i][0] * (long) x + coeficientes[i][1]) % nextPrime);
     }
+
+    /**
+     * Auxiliary method to calculate Jaccard Index, can be used to check MinHash results
+     * @param A Set A
+     * @param B Set B
+     * @return Jaccard's index
+     */
 
 
     public static double indiceJaccard(Set A, Set B){
