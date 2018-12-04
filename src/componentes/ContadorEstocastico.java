@@ -6,7 +6,7 @@ package componentes;
 public class ContadorEstocastico <T> {
 
 
-    public int contadorEstocástico1(int size){
+    public int contadorEstocastico1(int size){
         int count = 0;
         for(int i=0; i<= size; i++){
             double temp = Math.random();
@@ -19,7 +19,7 @@ public class ContadorEstocastico <T> {
 
     }
 
-    public int contadorEstocástico2valores(double max, double min, int size){
+    public int contadorEstocastico2valores(double max, double min, int size){
         int count = 0;
         for(int i=0; i<= size; i++){
             double temp = Math.random();
