@@ -130,12 +130,24 @@ public class MinHash {
     }
 
     /**
+     * Method to calculate MinHash error, with the formula 1/sqrt(signatureSize)
+     * For a smaller error, the Signature Size/Number of Hashes has to be bigger
+     * For 10% it's 100 hashes, for 1% is no more than 10000 hash functions!
+     * @return Error value.
+     */
+
+    public double erro(){
+        return 1.0 / Math.sqrt(signatureSize);
+
+    }
+
+
+    /**
      * Auxiliary method to calculate Jaccard Index, can be used to check MinHash results
      * @param A Set A
      * @param B Set B
      * @return Jaccard's index
      */
-
 
     public static double indiceJaccard(Set A, Set B){
         Set intersecao = new HashSet(A);
