@@ -37,10 +37,4 @@ public class DatasetReader {
         return readMatches;
     }
 
-
-    public static double readOdds(){
-        BufferedReader nReader;
-        String line;
-    }
-
 }
