@@ -1,7 +1,7 @@
 package testes;
 
 
-import casasDeApostas.Match;
+import casasDeApostas.componentes.Match;
 import componentes.CountingBloomFilter;
 import componentes.DatasetReader;
 import componentes.MinHash;
