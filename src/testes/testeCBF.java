@@ -9,7 +9,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Scanner;
 
-public class testCBF2 {
+public class testeCBF {
     public static void main(String[] args){
         System.out.println("The Count of Monte Cristo Word Searcher");
         Scanner sc = new Scanner(System.in);
