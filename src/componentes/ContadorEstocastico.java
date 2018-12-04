@@ -1,7 +1,8 @@
 package componentes;
 
 /**
- * Created by Media Markt on 20/11/2018.
+ * Implementação de um contador estocástico.
+ * @author Oscar Pimentel
  */
 public class ContadorEstocastico <T> {
 
