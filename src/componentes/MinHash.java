@@ -6,6 +6,7 @@ import java.util.*;
  * MinHash é um esquema de hashing que produz assinaturas semelhantes para
  * sets semelhantes.
  * Implementação baseada no artigo MinHash Tutorial with Python Code de Chris McCormick
+ * Encontrado em http://mccormickml.com/2015/06/12/minhash-tutorial-with-python-code/
  * @author Jorge Catarino
  */
 
@@ -74,15 +75,11 @@ public class MinHash {
         List<Integer> list = new ArrayList<Integer>(toSign);
         Collections.sort(list);
 
-        for (final int r : list) {
-
+        for (int hs : list) {
             for (int i = 0; i < signatureSize; i++) {
-                sig[i] = Math.min(
-                        sig[i],
-                        hash(i, r));
+                sig[i] = Math.min(sig[i], hash(i, hs));
             }
         }
-
         return sig;
     }
 
@@ -125,7 +122,7 @@ public class MinHash {
      * @return hashed value.
      */
     // h = (a * x + b) % LARGE_PRIME
-    private int hash(final int i, final int x) {
+    private int hash(int i, int x) {
         return (int) ((coeficientes[i][0] * (long) x + coeficientes[i][1]) % nextPrime);
     }
 
@@ -138,7 +135,6 @@ public class MinHash {
 
     public double erro(){
         return 1.0 / Math.sqrt(signatureSize);
-
     }
 
 
