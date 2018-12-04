@@ -3,12 +3,12 @@ package componentes;
 /**
  * Created by Media Markt on 20/11/2018.
  */
-public class ContadorEstocastico {
+public class ContadorEstocastico <T> {
 
-    //array só para testar, depois alterar para a estrutura de dados que queremos
-    public static int conta(int[] array){
+
+    public int contadorEstocástico1(int size){
         int count = 0;
-        for(int i=0; i<= array.length; i++){
+        for(int i=0; i<= size; i++){
             double temp = Math.random();
             if(temp<0.5){
                 count++;
@@ -17,7 +17,20 @@ public class ContadorEstocastico {
         }
         return count;
 
+    }
+
+    public int contadorEstocástico2valores(double max, double min, int size){
+        int count = 0;
+        for(int i=0; i<= size; i++){
+            double temp = Math.random();
+            if(temp>= min && temp <= max){
+                count++;
+            }
+
+        }
+        return count;
 
     }
+
 
 }

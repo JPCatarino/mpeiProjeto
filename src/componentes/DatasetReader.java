@@ -23,7 +23,7 @@ public class DatasetReader {
             nReader.readLine();
             while((line = nReader.readLine()) != null){
                 String[] match = line.split(csvSplit);
-                readMatches[i] = new Match(match[3],Integer.parseInt(match[4]), match[5], Integer.parseInt(match[6]));
+                readMatches[i] = new Match(match[3],Integer.parseInt(match[4]), match[5],Integer.parseInt(match[6]),Integer.parseInt(match[0]), match[1]);
                 i++;
             }
             nReader.close();
@@ -35,6 +35,12 @@ public class DatasetReader {
             e.printStackTrace();
         }
         return readMatches;
+    }
+
+
+    public static double readOdds(){
+        BufferedReader nReader;
+        String line;
     }
 
 }
