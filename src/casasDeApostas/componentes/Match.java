@@ -1,6 +1,4 @@
-package casasDeApostas;
-
-import java.util.Objects;
+package casasDeApostas.componentes;
 
 public class Match {
     private String home_team;

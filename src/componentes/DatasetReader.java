@@ -1,6 +1,6 @@
 package componentes;
 
-import casasDeApostas.Match;
+import casasDeApostas.componentes.Match;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
