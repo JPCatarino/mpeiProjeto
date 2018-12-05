@@ -2,6 +2,8 @@ package casasDeApostas.componentes;
 
 import java.util.LinkedList;
 import java.util.Random;
+import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * Created by Media Markt on 27/11/2018.
@@ -9,9 +11,9 @@ import java.util.Random;
 public class Bookmaker {
     public static String nomes[] = {"Bet365", "Betcris","Betfair", "Betfred", "BetOnline", "Betsson","BetUS", "BetVictor","Betway" ,"Boylesports", "Bwin", "Centrebet","Dafabet","Eurofootball","Gala Coral Group","Ladbrokes","Liga Stavok","Marathonbet","Paddy Power","Pinnacle Sports","SBOBET","Sky Bet","Sportingbet","Stan James","Star Sports", "The Tote","Unibet","William Hill"};
     private String nome = nomes[new Random().nextInt(nomes.length)];
-    private LinkedList<Match> listaJogos = new LinkedList<>();
+    private Set<Match> listaJogos = new TreeSet<>();
 
-    public Bookmaker(LinkedList<Match> listaJogos){
+    public Bookmaker(Set<Match> listaJogos){
         this.nome = nome;
         this.listaJogos = listaJogos;
 
@@ -26,7 +28,7 @@ public class Bookmaker {
         return nome;
     }
 
-    public LinkedList<Match> getListaJogos() {
+    public Set<Match> getListaJogos() {
         return listaJogos;
     }
 
