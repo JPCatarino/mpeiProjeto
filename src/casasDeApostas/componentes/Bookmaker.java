@@ -1,9 +1,9 @@
 package casasDeApostas.componentes;
 
-import java.util.LinkedList;
-import java.util.Random;
-import java.util.Set;
-import java.util.TreeSet;
+import componentes.CountingBloomFilter;
+import org.apache.commons.lang3.ObjectUtils;
+
+import java.util.*;
 
 /**
  * Created by Media Markt on 27/11/2018.
@@ -11,16 +11,21 @@ import java.util.TreeSet;
 public class Bookmaker {
     public static String nomes[] = {"Bet365", "Betcris","Betfair", "Betfred", "BetOnline", "Betsson","BetUS", "BetVictor","Betway" ,"Boylesports", "Bwin", "Centrebet","Dafabet","Eurofootball","Gala Coral Group","Ladbrokes","Liga Stavok","Marathonbet","Paddy Power","Pinnacle Sports","SBOBET","Sky Bet","Sportingbet","Stan James","Star Sports", "The Tote","Unibet","William Hill"};
     private String nome = nomes[new Random().nextInt(nomes.length)];
-    private Set<Match> listaJogos = new TreeSet<>();
+    private HashMap<Match,double[]> listaJogos;
+    private Set<Match> listaMatches;
+    private CountingBloomFilter correctOdds;
 
     public Bookmaker(Set<Match> listaJogos){
         this.nome = nome;
-        this.listaJogos = listaJogos;
-
+        this.listaJogos = new HashMap<>();
+        this.listaMatches = listaJogos;
+        populateListaJogos(listaJogos);
+        this.correctOdds = new CountingBloomFilter(500000 * 15, 32, 500000 * 15 / 500000); //change this values laer with optimal ones
+        correctOdds.insertElem("Porto");
    }
 
     //gera as odds para uma determinada equipa
-   public double oddGenerator(){
+    private double oddGenerator(){
         return (Math.random()*(12- 0.1))+0.1;
    }
 
@@ -28,8 +33,62 @@ public class Bookmaker {
         return nome;
     }
 
-    public Set<Match> getListaJogos() {
+    public HashMap<Match,double[]> getListaJogos() {
         return listaJogos;
     }
+
+    public void populateListaJogos(Set<Match> listaJogos){
+        for(Match i : listaJogos){
+            double aux[] = {oddGenerator(),oddGenerator(),oddGenerator()};
+            this.listaJogos.put(i,aux);
+        }
+    }
+
+    public long checkCBF(String toCheck){
+        return correctOdds.count(toCheck);
+    }
+
+    // Maybe we should insert the actual matches on the bloom
+    private void insertCorrectOdds() {
+        try {
+            Iterator iterator = listaJogos.entrySet().iterator();
+            while (iterator.hasNext()) {
+                Map.Entry<Match, double[]> p = (Map.Entry<Match, double[]>) iterator.next();
+                BetOption gameState = p.getKey().findStateGame();
+                System.out.println(gameState);
+                switch (gameState) {
+                    case Home:
+                        if (p.getValue()[0] < p.getValue()[1] && p.getValue()[0] < p.getValue()[2]) {
+                            System.out.println(p.getKey());
+                            correctOdds.insertElem(p.getKey().getHome_team());
+                        }
+                        break;
+                    case Draw:
+                        if (p.getValue()[1] < p.getValue()[0] && p.getValue()[1] < p.getValue()[2]) {
+                            //ver o que meter aqui
+                        }
+                        break;
+                    case Away:
+                        if (p.getValue()[2] < p.getValue()[0] && p.getValue()[2] < p.getValue()[1]) {
+                            System.out.println(p.getKey());
+                            correctOdds.insertElem(p.getKey().getAway_team());
+                        }
+                }
+            }
+        }
+        catch(NullPointerException e){
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "Bookmaker{" +
+                "nome='" + nome + '\'' +
+                ", listaJogos=" + listaJogos +
+                ", correctOdds=" + correctOdds +
+                '}';
+    }
+
 
 }

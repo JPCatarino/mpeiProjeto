@@ -33,6 +33,17 @@ public class Match {
         return away_score;
     }
 
+    public BetOption findStateGame(){
+        if(home_score == away_score){
+            return BetOption.Draw;
+        }
+        else if(home_score > away_score){
+            return BetOption.Home;
+        }
+        else
+            return BetOption.Away;
+    }
+
     public int getId() { return id; }
 
     public String getLiga() { return liga; }
