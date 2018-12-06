@@ -43,12 +43,19 @@ public class CasaDeApostasMain {
         return listaDeCasas;
 }
 
-    public static ArrayList<Bet> distribuiJogosPorCasas(Match[] jogos){
+
+
+        /*
+
+        public static ArrayList<Bet> distribuiJogosPorCasas(Match[] jogos){
 
         for (Match m: jogos) {
           // opcao(m);
 
         }
+        */
+
+
 
 
 
