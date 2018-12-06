@@ -16,7 +16,7 @@ public class DatasetReader {
     public static Match[] readMatches(){
         BufferedReader nReader;
         String line;
-        Match[] readMatches = new Match[500000];
+        Match[] readMatches = new Match[479440];
         int i = 0;
         try{
             nReader = new BufferedReader(new FileReader(csvPath));

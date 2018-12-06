@@ -21,8 +21,8 @@ public class Bookmaker {
         this.listaMatches = listaJogos;
         populateListaJogos(listaJogos);
         this.correctOdds = new CountingBloomFilter(500000 * 15, 32, 500000 * 15 / 500000); //change this values laer with optimal ones
-        correctOdds.insertElem("Porto");
-   }
+        insertCorrectOdds();
+    }
 
     //gera as odds para uma determinada equipa
     private double oddGenerator(){
@@ -50,16 +50,13 @@ public class Bookmaker {
 
     // Maybe we should insert the actual matches on the bloom
     private void insertCorrectOdds() {
-        try {
-            Iterator iterator = listaJogos.entrySet().iterator();
-            while (iterator.hasNext()) {
-                Map.Entry<Match, double[]> p = (Map.Entry<Match, double[]>) iterator.next();
-                BetOption gameState = p.getKey().findStateGame();
-                System.out.println(gameState);
-                switch (gameState) {
+        Iterator iterator = listaJogos.entrySet().iterator();
+        while (iterator.hasNext()) {
+            Map.Entry<Match, double[]> p = (Map.Entry<Match, double[]>) iterator.next();
+            BetOption gameState = p.getKey().findStateGame();
+            switch (gameState) {
                     case Home:
                         if (p.getValue()[0] < p.getValue()[1] && p.getValue()[0] < p.getValue()[2]) {
-                            System.out.println(p.getKey());
                             correctOdds.insertElem(p.getKey().getHome_team());
                         }
                         break;
@@ -70,15 +67,10 @@ public class Bookmaker {
                         break;
                     case Away:
                         if (p.getValue()[2] < p.getValue()[0] && p.getValue()[2] < p.getValue()[1]) {
-                            System.out.println(p.getKey());
                             correctOdds.insertElem(p.getKey().getAway_team());
                         }
                 }
             }
-        }
-        catch(NullPointerException e){
-            e.printStackTrace();
-        }
     }
 
     @Override
