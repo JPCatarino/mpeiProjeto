@@ -6,7 +6,9 @@ import org.apache.commons.lang3.ObjectUtils;
 import java.util.*;
 
 /**
- * Created by Media Markt on 27/11/2018.
+ * <h1>Bookmaker</h1>
+ * @author Jorge Catarino
+ * @author Oscar Pimentel
  */
 public class Bookmaker {
     public static String nomes[] = {"Bet365", "Betcris","Betfair", "Betfred", "BetOnline", "Betsson","BetUS", "BetVictor","Betway" ,"Boylesports", "Bwin", "Centrebet","Dafabet","Eurofootball","Gala Coral Group","Ladbrokes","Liga Stavok","Marathonbet","Paddy Power","Pinnacle Sports","SBOBET","Sky Bet","Sportingbet","Stan James","Star Sports", "The Tote","Unibet","William Hill"};

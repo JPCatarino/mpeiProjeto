@@ -1,5 +1,10 @@
 package casasDeApostas.componentes;
 
+/**<h1>Match</h1>
+ * @author Jorge Catarino
+ * @author Oscar Pimentel
+*/
+
 public class Match {
     private String home_team;
     private String away_team;

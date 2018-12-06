@@ -6,7 +6,8 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 
 /**
- * Created by Media Markt on 04/12/2018.
+ * <h1>Gambles</h1>
+ * @author Oscar Pimentel
  */
 public class Gambler {
     private String nome;
