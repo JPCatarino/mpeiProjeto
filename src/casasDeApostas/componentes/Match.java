@@ -1,5 +1,10 @@
 package casasDeApostas.componentes;
 
+/**<h1>Match</h1>
+ * @author Jorge Catarino
+ * @author Oscar Pimentel
+*/
+
 public class Match {
     private String home_team;
     private String away_team;
@@ -31,6 +36,17 @@ public class Match {
 
     public int getAway_score() {
         return away_score;
+    }
+
+    public BetOption findStateGame(){
+        if(home_score == away_score){
+            return BetOption.Draw;
+        }
+        else if(home_score > away_score){
+            return BetOption.Home;
+        }
+        else
+            return BetOption.Away;
     }
 
     public int getId() { return id; }
