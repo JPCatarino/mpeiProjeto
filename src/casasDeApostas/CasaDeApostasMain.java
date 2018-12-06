@@ -2,7 +2,9 @@ package casasDeApostas;
 
 import casasDeApostas.componentes.Bet;
 import casasDeApostas.componentes.Bookmaker;
+import casasDeApostas.componentes.Gambler;
 import casasDeApostas.componentes.Match;
+import componentes.CountingBloomFilter;
 import componentes.DatasetReader;
 
 import java.util.*;
@@ -25,6 +27,19 @@ public class CasaDeApostasMain {
                     }
                 }
             }
+        ArrayList<Bet> listaApostas =new ArrayList<>();
+        CountingBloomFilter<String> apostasCorretas = new CountingBloomFilter<>(2,2,2);
+        Gambler Jorge = new Gambler("Jorge", "Porto", listaApostas, apostasCorretas);
+        //preciso método para aceder às casas criadas
+
+
+        for(Bookmaker i: ListaDeCasas){
+            HashMap<Match,double[]> aux = i.getListaJogos();
+                for(Match j: aux.keySet()){
+                    Jorge.makeBet(j);
+                }
+        }
+
         }
 
 
@@ -57,16 +72,6 @@ public class CasaDeApostasMain {
         return listaDeCasas;
 }
 
- /*   public static ArrayList<Bet> distribuiJogosPorCasas(Match[] jogos){
-
-        for (Match m: jogos) {
-          // opcao(m);
-
-        }
-
-
-
-    }*/
 
 
 
