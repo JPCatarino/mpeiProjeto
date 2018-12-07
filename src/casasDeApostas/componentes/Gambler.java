@@ -53,15 +53,13 @@ public class Gambler {
         //consideramos que o apostador aposta de forma aleatória (?)
         String escolhaEquipa = matchOptions[new Random().nextInt(matchOptions.length)];
 
-        if(escolhaEquipa.equals(jogo.getHome_team())){
+        if (escolhaEquipa.equals(jogo.getHome_team())) {
             Bet aposta = new Bet(jogo, BetOption.Home);
             listaApostas.add(aposta);
-        } else
-        if(escolhaEquipa.equals(jogo.getAway_team())){
+        } else if (escolhaEquipa.equals(jogo.getAway_team())) {
             Bet aposta = new Bet(jogo, BetOption.Away);
             listaApostas.add(aposta);
-        } else
-        if(escolhaEquipa.equals("Draw")){
+        } else if (escolhaEquipa.equals("Draw")) {
             Bet aposta = new Bet(jogo, BetOption.Draw);
             listaApostas.add(aposta);
         }
