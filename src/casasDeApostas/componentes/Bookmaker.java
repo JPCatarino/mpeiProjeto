@@ -1,5 +1,6 @@
 package casasDeApostas.componentes;
 
+import componentes.ContadorEstocastico;
 import componentes.CountingBloomFilter;
 
 import java.util.*;
@@ -72,6 +73,10 @@ public class Bookmaker {
 
     public boolean isMemberCBF(Match toCheck){
         return correctOdds.isMember(toCheck);
+    }
+
+    public int estimateCorrectMatches(String team, int size, GameState gameState){
+        return ContadorEstocastico.contadorEstocastico(size, probabilityOfCorrectOdd(team, gameState));
     }
 
     private void insertNrMatches(){
