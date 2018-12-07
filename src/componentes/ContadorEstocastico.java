@@ -6,13 +6,13 @@ package componentes;
  * @author Oscar Pimentel
  * @author Jorge Catarino
  */
-public class ContadorEstocastico <T> {
+public class ContadorEstocastico{
 
     /**
      * Método para duplicar o número de eventos que se podem contar. Incrementa-se o contador com probabilidade de 0.5
      * @param size Tamanho da estrutura de dados sobre a qual queremos contar elementos.
      */
-    public int contadorEstocastico(int size, double prob){
+    public static int contadorEstocastico(int size, double prob){
         int count = 0;
         for(int i=0; i<= size; i++){
             double temp = Math.random();
@@ -25,7 +25,7 @@ public class ContadorEstocastico <T> {
 
     }
 
-    public int contadorEstocasticoIntervalo(double max, double min, int size){
+    public static int contadorEstocasticoIntervalo(double max, double min, int size){
         int count = 0;
         for(int i=0; i<= size; i++){
             double temp = Math.random();
