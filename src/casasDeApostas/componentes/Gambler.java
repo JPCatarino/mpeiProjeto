@@ -7,7 +7,7 @@ import java.util.LinkedList;
 import java.util.Random;
 
 /**
- * <h1>Gambles</h1>
+ * <h1>Gambler</h1>
  * @author Oscar Pimentel
  */
 public class Gambler {

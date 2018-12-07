@@ -13,6 +13,16 @@ public class Match {
     private int id;
     private String liga;
 
+
+    /**
+     * Class Constructor for Match.
+     * @param home_team
+     * @param away_team
+     * @param home_score
+     * @param away_score
+     * @param id
+     *
+     */
     public Match(String home_team, int home_score, String away_team, int away_score, int id, String liga) {
         this.home_team = home_team;
         this.away_team = away_team;

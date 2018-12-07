@@ -107,7 +107,7 @@ public class CasaDeApostasMain {
 
                     break;
                 case 2:
-                        
+
                     break;
                 case 3:
 
