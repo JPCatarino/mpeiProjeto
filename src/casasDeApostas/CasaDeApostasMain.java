@@ -1,9 +1,6 @@
 package casasDeApostas;
 
-import casasDeApostas.componentes.Bet;
-import casasDeApostas.componentes.Bookmaker;
-import casasDeApostas.componentes.Gambler;
-import casasDeApostas.componentes.Match;
+import casasDeApostas.componentes.*;
 import componentes.CountingBloomFilter;
 import componentes.DatasetReader;
 
@@ -15,15 +12,16 @@ public class CasaDeApostasMain {
 
     public static void main(String[] args) {
         Match jogosDataStructure[] = DatasetReader.readMatches();
-        ArrayList<Bookmaker> ListaDeCasas = geraCasas(1, jogosDataStructure);
+        ArrayList<Bookmaker> ListaDeCasas = geraCasas(3, jogosDataStructure);
 
         for (Bookmaker i : ListaDeCasas) {
             HashMap<Match, double[]> aux = i.getListaJogos();
             for (Map.Entry<Match, double[]> m : aux.entrySet()) {
-                if (i.checkCBF(m.getKey().getHome_team()) > 0) {
+                if (i.isMemberCBF(m.getKey())) {
                     System.out.println(m.getKey().getHome_team());
-                    System.out.println(i.checkCBF(m.getKey().getHome_team()));
+                    System.out.println(i.isMemberCBF(m.getKey()));
                     System.out.println(Arrays.toString(aux.get(m.getKey())));
+                    System.out.println("probability win: " + i.probabilityOfCorrectOdd(m.getKey().getHome_team(), GameState.Win));
                 }
             }
         }
