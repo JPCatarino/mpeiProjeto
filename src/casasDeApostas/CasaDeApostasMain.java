@@ -247,7 +247,7 @@ public class CasaDeApostasMain {
 
 
         }
-        if(haJogo = false){
+        if(haJogo == false){
             System.err.println("O jogo não existe na casa");
         }
 
