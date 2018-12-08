@@ -108,11 +108,27 @@ public class CasaDeApostasMain {
              ) {System.out.println(g);}
     }
 
+
+    //´TODO DÚVIDA: A função makeBet() recebe um Match. Como fazer com que o utilizador escreva esse match?
+    // Ou podemos fazer a função makeBet() receber o ID do jogo em que vamos aposyat?
     public static void fazApostadorApostar(Gambler apostador, Bookmaker casa, Match jogo){
+
+        HashMap<Match, double[]> jogosDaCasa = casa.getListaJogos();
         do{
             System.out.println("Qual o jogo em que quer que " + apostador + "aposte?");
-            
-        }while (!casa.isMemberCBF(jogo))
+
+        }while (!casa.isMemberCBF(jogo));
+
+
+        for (Map.Entry<Match, double[]> m : jogosDaCasa.entrySet()) {
+            if(m.equals(jogo)){
+                apostador.makeBet(jogo);
+                System.out.println("Aposta no jogo " + jogo + "realizada com sucesso!");
+
+            }
+
+        }
+
 
     }
 
