@@ -2,6 +2,7 @@ package casasDeApostas.componentes;
 
 import componentes.ContadorEstocastico;
 import componentes.CountingBloomFilter;
+import componentes.MinHash;
 
 import java.util.*;
 
@@ -180,8 +181,24 @@ public class Bookmaker {
         }
     }
 
-    public void verificaSeCasaTemJogosDoClube(String clube){
-        System.out.println(nrGames.isMember(clube));
+    public String findSimilarTeam(String team){
+        MinHash cmp = new MinHash(100);
+        int[] sigTeam = cmp.getSignature(MinHash.shingleTextPairs(team));
+        for(Match i : listaMatches){
+            int[] toCompare1 = cmp.getSignature(MinHash.shingleTextPairs(i.getHome_team()));
+            int[] toCompare2 = cmp.getSignature(MinHash.shingleTextPairs(i.getAway_team()));
+            if(cmp.calculateSimilarity(sigTeam,toCompare1) > 0.7){
+                return i.getHome_team();
+            }
+            else if(cmp.calculateSimilarity(sigTeam,toCompare2) > 0.7){
+                return i.getAway_team();
+            }
+        }
+        return "";
+    }
+
+    public boolean verificarSeCasaTemJogosDoClube(String clube){
+        return nrGames.isMember(clube);
     }
 
     @Override
