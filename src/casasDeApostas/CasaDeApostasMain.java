@@ -25,7 +25,7 @@ public class CasaDeApostasMain {
 
                 case 1:
                     Match jogosDataStructure[] = DatasetReader.readMatches();
-                    listaDeCasas = geraCasas(1, jogosDataStructure);
+                    listaDeCasas = geraCasas(jogosDataStructure);
 
                     break;
                 case 2:
@@ -35,8 +35,7 @@ public class CasaDeApostasMain {
                     break;
                 case 3:
                     System.out.println("Quantos Apostadores quer gerar? ");
-                    int n = inputScanner.nextInt();
-                    listaDeApostadores = geraApostadores(n);
+                    listaDeApostadores = geraApostadoresInput();
 
                     break;
                 case 4:
@@ -70,13 +69,18 @@ public class CasaDeApostasMain {
     }
 
 
-    public static ArrayList<Bookmaker> geraCasas(int numeroDeCasas, Match[] jogosDS) {
+    public static ArrayList<Bookmaker> geraCasas(Match[] jogosDS) {
+        Scanner input = new Scanner(System.in);
+        System.out.println("Quantas casas de Apostas quer gerar?");
+        int n = input.nextInt();
+
         ArrayList<Bookmaker> listaDeCasas = new ArrayList<>();
 
-        for (int i = 0; i < numeroDeCasas; i++) {
+        for (int i = 0; i < n; i++) {
             Set<Match> jogosDaCasa = selecionaConjuntoJogos(jogosDS);
             Bookmaker casa = new Bookmaker(jogosDaCasa);
             listaDeCasas.add(casa);
+            System.out.println("Casa " + casa.getNome() + " gerada com sucesso!");
         }
         return listaDeCasas;
     }
@@ -100,8 +104,12 @@ public class CasaDeApostasMain {
         }
     }
 
-    public static ArrayList<Gambler> geraApostadores(int n){
+    public static ArrayList<Gambler> geraApostadoresInput(){
         Scanner input = new Scanner(System.in);
+
+        System.out.println("Quantos utilizadores quer criar com input?");
+        int n = input.nextInt();
+
         ArrayList<Gambler> apostadores = new ArrayList<>();
         for (int i=0; i<n; i++){
             System.out.println("Nome: ");
