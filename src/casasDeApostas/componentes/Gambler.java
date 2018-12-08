@@ -22,14 +22,13 @@ public class Gambler {
      * @param nome Name of the Gambler.
      * @param clubeFavorito The club that the Gambler supports.
      * @param listaJogosEmQueApostou List of the matches the Gambler has placed a bet.
-     * @param apostasCcorretas List of bets from the Gambler that actually were correct and the winning team matches the bet option.
      */
 
-    public Gambler(String nome, String clubeFavorito, ArrayList<Bet> listaJogosEmQueApostou, CountingBloomFilter<String> apostasCcorretas){
+    public Gambler(String nome, String clubeFavorito, ArrayList<Bet> listaJogosEmQueApostou){
         this.nome = nome;
         this.clubeFavorito = clubeFavorito;
         this.listaApostas = listaJogosEmQueApostou;
-        this.apostasCcorretas = apostasCcorretas;
+        this.apostasCcorretas = new CountingBloomFilter<>(listaApostas.size()*15, 32, CountingBloomFilter.calculateOptimalK(listaApostas.size()*15,listaApostas.size()));
     }
 
     public String getNome() {

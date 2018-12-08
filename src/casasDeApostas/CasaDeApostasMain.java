@@ -103,7 +103,7 @@ public class CasaDeApostasMain {
             String clube = input.nextLine();
             ArrayList<Bet> listaApostas = new ArrayList<>();
             CountingBloomFilter<String> apostasCorretas = new CountingBloomFilter<>(2, 2, 2);
-            Gambler a = new Gambler(nome, clube, listaApostas, apostasCorretas);
+            Gambler a = new Gambler(nome, clube, listaApostas);
            apostadores.add(a);
 
         }
