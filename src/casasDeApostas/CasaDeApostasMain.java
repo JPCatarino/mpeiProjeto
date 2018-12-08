@@ -220,8 +220,6 @@ public class CasaDeApostasMain {
     }
 
 
-    //´TODO DÚVIDA: A função makeBet() recebe um Match. Como fazer com que o utilizador escreva esse match?
-    // Ou podemos fazer a função makeBet() receber o ID do jogo em que vamos aposyat?
     public static void fazApostadorApostar(Gambler apostador, Bookmaker casa) {
         Scanner input = new Scanner(System.in);
         boolean haJogo = false;
@@ -272,23 +270,8 @@ public class CasaDeApostasMain {
             }
 
         }
-
-
-
-
-
     }
 
-    //TODO vamos precisar do ano na classe match para contar quantas vitórias a equipa conseguiu naquele ano
-
-    /*
-
-    public static void calculaProbabilidadeDeSerCampeaoParaOAno(String equipa){
-
-        Match jogosDataStructure[] = DatasetReader.readMatches();
-
-    }
-    */
 
     public static int menu() {
 
