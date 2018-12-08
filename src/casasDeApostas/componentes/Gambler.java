@@ -15,20 +15,18 @@ public class Gambler {
     private String nome;
     private ArrayList<Bet> listaApostas;
     private CountingBloomFilter<String> apostasCcorretas;
-    private String clubeFavorito;
+
 
     /**
      * Class Constructor for Bookmaker, the place were you make bets.
      * @param nome Name of the Gambler.
-     * @param clubeFavorito The club that the Gambler supports.
      * @param listaJogosEmQueApostou List of the matches the Gambler has placed a bet.
      */
 
-    public Gambler(String nome, String clubeFavorito, ArrayList<Bet> listaJogosEmQueApostou){
+    public Gambler(String nome, ArrayList<Bet> listaJogosEmQueApostou){
         this.nome = nome;
-        this.clubeFavorito = clubeFavorito;
         this.listaApostas = listaJogosEmQueApostou;
-        this.apostasCcorretas = new CountingBloomFilter<>(listaApostas.size()*15, 32, CountingBloomFilter.calculateOptimalK(listaApostas.size()*15,listaApostas.size()));
+        this.apostasCcorretas = new CountingBloomFilter<>(300000*15, 32, CountingBloomFilter.calculateOptimalK(300000*15,300000));
     }
 
     public String getNome() {
@@ -45,13 +43,11 @@ public class Gambler {
         return apostasCcorretas;
     }
 
-    public String getClubeFavorito() { return clubeFavorito; }
 
     @Override
     public String toString() {
         return "Gambler{" +
                 "nome='" + nome + '\'' +
-                ", clubeFavorito=" + clubeFavorito +
                 ", listaApostas=" + listaApostas +
                 ", apostasCcorretas=" + apostasCcorretas +
                 '}';

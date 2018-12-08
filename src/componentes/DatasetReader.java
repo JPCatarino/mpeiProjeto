@@ -6,11 +6,13 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 
 public class DatasetReader {
     private static String csvPath = "src\\componentes\\dataset\\closing_odds.csv";
+    private static String namesPath = "src\\componentes\\dataset\\NationalNames.csv";
     private static String datasetPath = "src\\componentes\\dataset\\";
     private static String csvSplit = ",";
 
@@ -68,5 +70,29 @@ public class DatasetReader {
         }
         return clubMatches;
     }
+
+    public static ArrayList<String> readNames() {
+        BufferedReader nReader;
+        String line;
+        ArrayList<String> nomes = new ArrayList<>();
+
+        try {
+            nReader = new BufferedReader(new FileReader(namesPath));
+            nReader.readLine();
+            while ((line = nReader.readLine()) != null) {
+                String[] s = line.split(csvSplit);
+                nomes.add(s[1]);
+
+            }
+
+        } catch (FileNotFoundException e1) {
+            e1.printStackTrace();
+        } catch (IOException e1) {
+            e1.printStackTrace();
+        }
+        return nomes;
+    }
+
+
 
 }
