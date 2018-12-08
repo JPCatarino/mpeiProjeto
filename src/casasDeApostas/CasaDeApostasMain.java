@@ -69,6 +69,10 @@ public class CasaDeApostasMain {
         return listaDeCasas;
     }
 
+    public static void estimateAndPrintCorrectOdds(Bookmaker bookie, String fileName, String team, GameState gameState){
+        // TODO - Function to get amtches of a certain club out of dataset - DONE
+    }
+
     public static void listaCasas(ArrayList<Bookmaker> bookmakerList){
         for (Bookmaker b: bookmakerList
              ) {

@@ -12,15 +12,13 @@ import java.util.Random;
  */
 public class Gambler {
     private String nome;
-    private ArrayList<Bet> listaApostas = new ArrayList<>();
+    private ArrayList<Bet> listaApostas;
     private CountingBloomFilter<String> apostasCcorretas;
 
     public Gambler(String nome, String clubeFavorito, ArrayList<Bet> listaJogosEmQueApostou, CountingBloomFilter<String> apostasCcorretas){
         this.nome = nome;
         this.listaApostas = listaJogosEmQueApostou;
         this.apostasCcorretas = apostasCcorretas;
-
-
     }
 
     public String getNome() {

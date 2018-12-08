@@ -1,5 +1,6 @@
 package casasDeApostas.componentes;
 
+import componentes.ContadorEstocastico;
 import componentes.CountingBloomFilter;
 
 import java.util.*;
@@ -11,7 +12,7 @@ import java.util.*;
  */
 public class Bookmaker {
     public static String nomes[] = {"Bet365", "Betcris","Betfair", "Betfred", "BetOnline", "Betsson","BetUS", "BetVictor","Betway" ,"Boylesports", "Bwin", "Centrebet","Dafabet","Eurofootball","Gala Coral Group","Ladbrokes","Liga Stavok","Marathonbet","Paddy Power","Pinnacle Sports","SBOBET","Sky Bet","Sportingbet","Stan James","Star Sports", "The Tote","Unibet","William Hill"};
-    private String nome = nomes[new Random().nextInt(nomes.length)];
+    private String nome;
     private HashMap<Match,double[]> listaJogos;
     private HashMap<String,int[]> listaJogosPorEquipa;
     private Set<Match> listaMatches;
@@ -22,7 +23,7 @@ public class Bookmaker {
     private CountingBloomFilter<String> correctDraws;       // Conta quantas vezes as odds estavam corretas para o empate de uma equipa
 
     public Bookmaker(Set<Match> listaJogos){
-        this.nome = nome;
+        this.nome = nomes[new Random().nextInt(nomes.length)];
         this.listaJogos = new HashMap<>();
         this.listaMatches = listaJogos;
         this.listaJogosPorEquipa = new HashMap<>();
@@ -92,6 +93,10 @@ public class Bookmaker {
 
     public boolean isMemberCBF(Match toCheck){
         return correctOdds.isMember(toCheck);
+    }
+
+    public int estimateCorrectMatches(String team, int size, GameState gameState){
+        return ContadorEstocastico.contadorEstocastico(size, probabilityOfCorrectOdd(team, gameState));
     }
 
     private void insertNrMatches(){
