@@ -134,8 +134,13 @@ public class CasaDeApostasMain {
 
     }
 
-    public static boolean verificaSeCasaTemjogosDeClube(Bookmaker casa, String clube){
+    public static boolean verificaSeCasaTemjogosDeClube(Bookmaker casa){
+        Scanner inputScanner = new Scanner(System.in);
         System.out.println("Qual o clube que pretende ver se existem jogos para apostar nesta casa?");
+            String equipa = inputScanner.nextLine();
+
+            casa.getNrGames().isMember(equipa);
+
     }
 
     public static void menu() {
