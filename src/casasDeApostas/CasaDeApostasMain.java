@@ -13,36 +13,42 @@ import java.util.Set;
 public class CasaDeApostasMain {
 
     public static void main(String[] args) {
-        /*
-        Match jogosDataStructure[] = DatasetReader.readMatches();
-        ArrayList<Bookmaker> ListaDeCasas = geraCasas(3, jogosDataStructure);
+        Scanner inputScanner = new Scanner(System.in);
+        ArrayList<Bookmaker> listaDeCasas;
+        ArrayList<Gambler> listaDeApostadores;
 
-        for (Bookmaker i : ListaDeCasas) {
-            HashMap<Match, double[]> aux = i.getListaJogos();
-            for (Map.Entry<Match, double[]> m : aux.entrySet()) {
-                if (i.isMemberCBF(m.getKey())) {
-                    System.out.println(m.getKey().getHome_team());
-                    System.out.println(i.isMemberCBF(m.getKey()));
-                    System.out.println(Arrays.toString(aux.get(m.getKey())));
-                    System.out.println("probability win: " + i.probabilityOfCorrectOdd(m.getKey().getHome_team(), GameState.Win));
-                }
+        do {
+            int opcao= menu();
+
+
+            switch (opcao) {
+
+                case 1:
+                    Match jogosDataStructure[] = DatasetReader.readMatches();
+                    listaDeCasas = geraCasas(1, jogosDataStructure);
+                    listaCasas(listaDeCasas);
+                    break;
+                case 2:
+                    System.out.println("Quantos Apostadores quer gerar? ");
+                    int n = inputScanner.nextInt();
+                    listaDeApostadores = geraApostadores(n);
+                    imprimeApostadores(listaDeApostadores);
+
+                    break;
+                case 3:
+
+                    break;
+                case 4:
+
+                case 5:
+
+                    break;
+                case 6:
+                    System.out.println("Programa terminado com sucesso!");
+                    System.exit(0);
+
             }
-        }
-        ArrayList<Bet> listaApostas = new ArrayList<>();
-        CountingBloomFilter<String> apostasCorretas = new CountingBloomFilter<>(2, 2, 2);
-        Gambler Jorge = new Gambler("Jorge", "Porto", listaApostas, apostasCorretas);
-        //preciso método para aceder às casas criadas
-
-
-        for (Bookmaker i : ListaDeCasas) {
-            HashMap<Match, double[]> aux = i.getListaJogos();
-            for (Match j : aux.keySet()) {
-                Jorge.makeBet(j);
-            }
-        }
-        */
-        menu();
-
+        }while (true);
     }
 
 
@@ -123,38 +129,27 @@ public class CasaDeApostasMain {
     public static void fazApostadorApostar(Gambler apostador, Bookmaker casa){
         Scanner input = new Scanner(System.in);
 
-        HashMap<Match, double[]> jogosDaCasa = casa.getListaJogos();
 
             System.out.println("Qual o jogo em que quer que " + apostador + "aposte?");
             System.out.println("Formato: Equipa-casa, Equipa-fora");
             String jogo = input.nextLine();
             String[] match2Array = jogo.split(",");
+            String equipaCasa = casa.findSimilarTeam(match2Array[0]);
+            String equipaFora = casa.findSimilarTeam(match2Array[1]);
 
-            MinHash cmp = new MinHash(100);
-
-
-            for(Map.Entry<Match, double[]> m : jogosDaCasa.entrySet()) {
-               // int[] toCompare1 = cmp.getSignature(MinHash.shingleTextPairs(match[2]));
-                //int[] toCompare2 = cmp.getSignature(MinHash.shingleTextPairs(match[3]));
-
-
-
-
-
-        }
-
-
-
-
-
-        for (Map.Entry<Match, double[]> m : jogosDaCasa.entrySet()) {
-            if(m.equals(jogo)){
-                //apostador.makeBet(jogo);
+        for (Match m: casa.getListaMatches()) {
+            if(m.getHome_team().equals(equipaCasa) && m.getAway_team().equals(equipaFora)){
+                apostador.makeBet(m);
                 System.out.println("Aposta no jogo " + jogo + "realizada com sucesso!");
 
-            }
+        }
 
         }
+
+
+
+
+
 
 
     }
@@ -196,7 +191,7 @@ public class CasaDeApostasMain {
     }
     */
 
-    public static void menu() {
+    public static int menu() {
 
         Scanner inputScanner = new Scanner(System.in);
         int opcao = -1;
@@ -214,41 +209,12 @@ public class CasaDeApostasMain {
             System.out.println("---------------------------------------------");
             System.out.print("Insira a sua opção->");
 
-            try {
-                opcao = inputScanner.nextInt();
-            } catch (Exception var4) {
-                System.out.println("Opção inválida!");
-                System.exit(0);
-            }
 
-            switch (opcao) {
 
-                case 1:
-                    Match jogosDataStructure[] = DatasetReader.readMatches();
-                    ArrayList<Bookmaker> listaDeCasas = geraCasas(1, jogosDataStructure);
-                    listaCasas(listaDeCasas);
-                    break;
-                case 2:
-                    System.out.println("Quantos Apostadores quer gerar? ");
-                    int n = inputScanner.nextInt();
-                    ArrayList<Gambler> listaDeApostadores =geraApostadores(n);
-                    imprimeApostadores(listaDeApostadores);
 
-                    break;
-                case 3:
-
-                    break;
-                case 4:
-
-                case 5:
-
-                    break;
-                case 6:
-                    System.out.println("Programa terminado com sucesso!");
-
-            }
 
 
         }
+        return inputScanner.nextInt();
     }
 }

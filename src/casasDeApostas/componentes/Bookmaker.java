@@ -73,6 +73,10 @@ public class Bookmaker {
         return listaJogos;
     }
 
+    public Set<Match> getListaMatches() {
+        return listaMatches;
+    }
+
     public void populateListaJogos(Set<Match> listaJogos){
         for(Match i : listaJogos){
             double aux[] = {oddGenerator(),oddGenerator(),oddGenerator()};
