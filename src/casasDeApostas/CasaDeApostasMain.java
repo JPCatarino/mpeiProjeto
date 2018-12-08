@@ -48,24 +48,11 @@ public class CasaDeApostasMain {
 
 
                 case 5:
-                    System.out.println("Qual o Apostador que vai apostar?");
-                    String apostador = inputScanner.nextLine();
-                    for (Gambler a: listaDeApostadores) {
-                        if(a.getNome().equals(apostador)){
-                            System.out.println("Em que casa " + apostador + " vai apostar?");
-                            String casa = inputScanner.nextLine();
-                            for (Bookmaker b: listaDeCasas) {
-                                if(b.getNome().equals(casa)){
-                                    fazApostadorApostar(a,b);
-                                }
-
-                            }
-
-                        }
-
-                    }
-
-
+                    System.out.println("Qual o indice do Apostador que vai apostar?");
+                    Gambler apostador = listaDeApostadores.get(inputScanner.nextInt());
+                    System.out.println("Em que casa " + apostador + " vai apostar? (por indice)");
+                    Bookmaker b = listaDeCasas.get(inputScanner.nextInt());
+                    fazApostadorApostar(apostador,b);
                     break;
                 case 6:
                     imprimeApostadores(listaDeApostadores);
@@ -139,14 +126,11 @@ public class CasaDeApostasMain {
 
     public static Set<Match> selecionaConjuntoJogos(Match[] jogosDS) {
         int number = (int) (Math.random() * (jogosDS.length - 1) + (1));
-        // Match listaDeEJogosSDaCasa[]= new Match[number];
         Set<Match> conjuntoDeJoosDaCasa = new LinkedHashSet<Match>();
 
         for (int i = 0; i < number; i++) {
             int n = new Random().nextInt(jogosDS.length);
             Match m = jogosDS[n];
-            //System.out.println(n);
-            //System.out.println(m.getHome_team());
             conjuntoDeJoosDaCasa.add(m);
         }
         return conjuntoDeJoosDaCasa;
@@ -201,7 +185,6 @@ public class CasaDeApostasMain {
         for (int i=0; i<n; i++){
             System.out.println("Nome: ");
             String nome = input.next();
-            ArrayList<Bet> listaApostas = new ArrayList<>();
             Gambler a = new Gambler(nome);
            apostadores.add(a);
 
@@ -251,28 +234,16 @@ public class CasaDeApostasMain {
     }
 
     public static void verificaUmaAposta(Gambler apostador){
-        for (Bet b:apostador.getListaApostas()
-             ) {
-            BetOption opcao = b.getOpcao();
-            if(opcao.equals(Home)){
-                if(b.getJogo().getHome_score() > b.getJogo().getAway_score()) {
-                    System.out.println("Apostador acertou na aposta!!");
-                }
-                else System.out.println("Jogador errou a aposta");
+        for(Bet b : apostador.getListaApostas()){
+            System.out.println("Casa: " + b.getJogo().getHome_team() + "Golos: " + b.getJogo().getHome_score());
+            System.out.println("Fora: " + b.getJogo().getAway_team() + "Golos: " + b.getJogo().getAway_score());
+            System.out.println("O apostador apostou em " + b.getOpcao());
+            if(apostador.getListaApostasCorretas().contains(b)){
+                System.out.println("O apostador acertou a aposta");
             }
-            if(opcao.equals(Away)){
-                if(b.getJogo().getHome_score() < b.getJogo().getAway_score()) {
-                    System.out.println("Apostador acertou na aposta!!");
-                }
-                else System.out.println("Jogador errou a aposta");
+            else{
+                System.out.println("O apostador errou a aposta");
             }
-            if(opcao.equals(Draw)){
-                if(b.getJogo().getHome_score() == b.getJogo().getAway_score()) {
-                    System.out.println("Apostador acertou na aposta!!");
-                }
-                else System.out.println("Jogador errou a aposta");
-            }
-
         }
     }
 
