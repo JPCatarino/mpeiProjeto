@@ -179,7 +179,7 @@ public class CasaDeApostasMain {
             System.out.println("Nome: ");
             String nome = input.next();
             ArrayList<Bet> listaApostas = new ArrayList<>();
-            Gambler a = new Gambler(nome, listaApostas);
+            Gambler a = new Gambler(nome);
            apostadores.add(a);
 
         }
@@ -200,7 +200,7 @@ public class CasaDeApostasMain {
             String nome = nomesAleatorios.get(new Random().nextInt(nomesAleatorios.size()));
 
             ArrayList<Bet> listaApostas = new ArrayList<>();
-            Gambler a = new Gambler(nome,listaApostas);
+            Gambler a = new Gambler(nome);
             apostadores.add(a);
 
         }
