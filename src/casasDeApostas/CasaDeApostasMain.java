@@ -14,8 +14,8 @@ public class CasaDeApostasMain {
 
     public static void main(String[] args) {
         Scanner inputScanner = new Scanner(System.in);
-        ArrayList<Bookmaker> listaDeCasas;
-        ArrayList<Gambler> listaDeApostadores;
+        ArrayList<Bookmaker> listaDeCasas = new ArrayList<>();
+        ArrayList<Gambler> listaDeApostadores= new ArrayList<>();
 
         do {
             int opcao= menu();
@@ -26,19 +26,21 @@ public class CasaDeApostasMain {
                 case 1:
                     Match jogosDataStructure[] = DatasetReader.readMatches();
                     listaDeCasas = geraCasas(1, jogosDataStructure);
-                    listaCasas(listaDeCasas);
+
                     break;
                 case 2:
-                    System.out.println("Quantos Apostadores quer gerar? ");
-                    int n = inputScanner.nextInt();
-                    listaDeApostadores = geraApostadores(n);
-                    imprimeApostadores(listaDeApostadores);
+                    listaCasas(listaDeCasas);
+
 
                     break;
                 case 3:
+                    System.out.println("Quantos Apostadores quer gerar? ");
+                    int n = inputScanner.nextInt();
+                    listaDeApostadores = geraApostadores(n);
 
                     break;
                 case 4:
+                    imprimeApostadores(listaDeApostadores);
 
                 case 5:
 
@@ -94,7 +96,7 @@ public class CasaDeApostasMain {
     public static void listaCasas(ArrayList<Bookmaker> bookmakerList){
         for (Bookmaker b: bookmakerList
              ) {
-            System.out.println(b);
+            System.out.println(b.getNome());
         }
     }
 
@@ -195,25 +197,18 @@ public class CasaDeApostasMain {
         Scanner inputScanner = new Scanner(System.in);
         int opcao = -1;
 
-        while (opcao != 6) {
-            System.out.println("---------------------------------------------");
-            System.out.println("|||           Casas de Apostas           |||");
-            System.out.println("---------------------------------------------");
-            System.out.println("|| 1-> Gerar e Listar Casas de Apostas     ||");
-            System.out.println("|| 2-> Gerar e Listar Apostadores          ||");
-            System.out.println("|| 3-> Fazer um jogador apostar num jogo   ||");
-            System.out.println("|| 4->                                     ||");
-            System.out.println("|| 5->                                     ||");
-            System.out.println("|| 6-> Terminar programa                   ||");
-            System.out.println("---------------------------------------------");
-            System.out.print("Insira a sua opção->");
+        System.out.println("---------------------------------------------");
+        System.out.println("|||           Casas de Apostas           |||");
+        System.out.println("---------------------------------------------");
+        System.out.println("|| 1-> Gerar e Listar Casas de Apostas     ||");
+        System.out.println("|| 2-> Gerar e Listar Apostadores          ||");
+        System.out.println("|| 3-> Fazer um jogador apostar num jogo   ||");
+        System.out.println("|| 4->                                     ||");
+        System.out.println("|| 5->                                     ||");
+        System.out.println("|| 6-> Terminar programa                   ||");
+        System.out.println("---------------------------------------------");
+        System.out.print("Insira a sua opção->");
 
-
-
-
-
-
-        }
         return inputScanner.nextInt();
     }
 }
