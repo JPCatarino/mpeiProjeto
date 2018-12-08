@@ -201,11 +201,11 @@ public class CasaDeApostasMain {
         System.out.println("---------------------------------------------");
         System.out.println("|||           Casas de Apostas           |||");
         System.out.println("---------------------------------------------");
-        System.out.println("|| 1-> Gerar e Listar Casas de Apostas     ||");
-        System.out.println("|| 2-> Gerar e Listar Apostadores          ||");
-        System.out.println("|| 3-> Fazer um jogador apostar num jogo   ||");
-        System.out.println("|| 4->                                     ||");
-        System.out.println("|| 5->                                     ||");
+        System.out.println("|| 1-> Gerar Casas de Apostas              ||");
+        System.out.println("|| 2-> Listar Casas de Apostas             ||");
+        System.out.println("|| 3-> Criar Apostadores via input         ||");
+        System.out.println("|| 4-> Criar Apostadores Aleatórios        ||");
+        System.out.println("|| 5-> Fazer uma Aposta                    ||");
         System.out.println("|| 6-> Terminar programa                   ||");
         System.out.println("---------------------------------------------");
         System.out.print("Insira a sua opção->");
