@@ -188,7 +188,9 @@ public class CasaDeApostasMain {
         Scanner input = new Scanner(System.in);
         boolean haJogo = false;
 
-        System.out.println("Qual o jogo em que quer que " + apostador + "aposte?\n");
+        Set<Match> teste = casa.getListaMatches();
+        System.out.println(teste.iterator().next());
+        System.out.println("Qual o jogo em que quer que " + apostador.getNome() + "aposte?\n");
 
         System.out.println("Formato: Equipa-casa, Equipa-fora");
         String jogo = input.nextLine();
@@ -199,7 +201,7 @@ public class CasaDeApostasMain {
         for (Match m : casa.getListaMatches()) {
             if (m.getHome_team().equals(equipaCasa) && m.getAway_team().equals(equipaFora)) {
                 apostador.makeBet(m);
-                System.out.println("Aposta no jogo " + jogo + "realizada com sucesso!");
+                System.out.println("Aposta no jogo " + jogo + " realizada com sucesso!");
                 haJogo = true;
 
 
