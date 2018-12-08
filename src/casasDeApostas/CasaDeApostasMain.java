@@ -126,9 +126,9 @@ public class CasaDeApostasMain {
 
 
             for(Map.Entry<Match, double[]> m : jogosDaCasa.entrySet()) {
-                int[] toCompare1 = cmp.getSignature(MinHash.shingleTextPairs(match[2]));
-                int[] toCompare2 = cmp.getSignature(MinHash.shingleTextPairs(match[3]));
-                
+               // int[] toCompare1 = cmp.getSignature(MinHash.shingleTextPairs(match[2]));
+                //int[] toCompare2 = cmp.getSignature(MinHash.shingleTextPairs(match[3]));
+
 
 
 
@@ -141,7 +141,7 @@ public class CasaDeApostasMain {
 
         for (Map.Entry<Match, double[]> m : jogosDaCasa.entrySet()) {
             if(m.equals(jogo)){
-                apostador.makeBet(jogo);
+                //apostador.makeBet(jogo);
                 System.out.println("Aposta no jogo " + jogo + "realizada com sucesso!");
 
             }
