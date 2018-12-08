@@ -45,7 +45,7 @@ public class CasaDeApostasMain {
                 case 5:
                     System.out.println("Qual o indice do Apostador que vai apostar?");
                     Gambler apostador = listaDeApostadores.get(inputScanner.nextInt());
-                    System.out.println("Em que casa " + apostador + " vai apostar? (por indice)");
+                    System.out.println("Em que casa " + apostador.getNome() + " vai apostar? (por indice)");
                     Bookmaker b = listaDeCasas.get(inputScanner.nextInt());
                     fazApostadorApostar(apostador,b);
                     break;
@@ -100,7 +100,7 @@ public class CasaDeApostasMain {
                 case 10:
                     System.out.println("Qual o indice do Apostador que vai apostar?");
                     Gambler a = listaDeApostadores.get(inputScanner.nextInt());
-                    System.out.println("Em que casa " + a + " vai apostar? (por indice)");
+                    System.out.println("Em que casa " + a.getNome() + " vai apostar? (por indice)");
                     Bookmaker bb = listaDeCasas.get(inputScanner.nextInt());
                     generateRandomBets(a,bb);
                     break;
@@ -226,14 +226,15 @@ public class CasaDeApostasMain {
 
     public static void verificaUmaAposta(Gambler apostador){
         for(Bet b : apostador.getListaApostas()){
-            System.out.println("Casa: " + b.getJogo().getHome_team() + "Golos: " + b.getJogo().getHome_score());
-            System.out.println("Fora: " + b.getJogo().getAway_team() + "Golos: " + b.getJogo().getAway_score());
-            System.out.println("O apostador apostou em " + b.getOpcao());
+            System.out.println("Casa: " + b.getJogo().getHome_team() + " Golos: " + b.getJogo().getHome_score());
+            System.out.println("Fora: " + b.getJogo().getAway_team() + " Golos: " + b.getJogo().getAway_score());
+            System.out.println("O apostador " + apostador.getNome() +" apostou em " + b.getOpcao());
             if(apostador.getListaApostasCorretas().contains(b)){
-                System.out.println("O apostador acertou a aposta");
+                System.out.println("O apostador " +apostador.getNome()+ " acertou a aposta");
             }
             else{
-                System.out.println("O apostador errou a aposta");
+                System.out.println("O apostador "+apostador.getNome() +" errou a aposta");
+                System.out.println();
             }
         }
     }
