@@ -4,6 +4,7 @@ import casasDeApostas.componentes.*;
 import com.sun.org.apache.xpath.internal.SourceTree;
 import componentes.CountingBloomFilter;
 import componentes.DatasetReader;
+import componentes.MinHash;
 
 import java.util.*;
 
@@ -111,15 +112,31 @@ public class CasaDeApostasMain {
 
     //´TODO DÚVIDA: A função makeBet() recebe um Match. Como fazer com que o utilizador escreva esse match?
     // Ou podemos fazer a função makeBet() receber o ID do jogo em que vamos aposyat?
-    public static void fazApostadorApostar(Gambler apostador, Bookmaker casa, Match jogo, int idJogo){
+    public static void fazApostadorApostar(Gambler apostador, Bookmaker casa){
         Scanner input = new Scanner(System.in);
 
         HashMap<Match, double[]> jogosDaCasa = casa.getListaJogos();
-        do{
+
             System.out.println("Qual o jogo em que quer que " + apostador + "aposte?");
+            System.out.println("Formato: Equipa-casa, Equipa-fora");
+            String jogo = input.nextLine();
+            String[] match2Array = jogo.split(",");
+
+            MinHash cmp = new MinHash(100);
 
 
-        }while (!casa.isMemberCBF(jogo));
+            for(Map.Entry<Match, double[]> m : jogosDaCasa.entrySet()) {
+                int[] toCompare1 = cmp.getSignature(MinHash.shingleTextPairs(match[2]));
+                int[] toCompare2 = cmp.getSignature(MinHash.shingleTextPairs(match[3]));
+                
+
+
+
+
+        }
+
+
+
 
 
         for (Map.Entry<Match, double[]> m : jogosDaCasa.entrySet()) {
@@ -134,23 +151,39 @@ public class CasaDeApostasMain {
 
     }
 
-    public static boolean verificaSeCasaTemjogosDeClube(Bookmaker casa){
+    public void verificaSeCasaTemjogosDeClube(Bookmaker casa, ArrayList<Bookmaker> listaDeCasas){
         Scanner inputScanner = new Scanner(System.in);
-        System.out.println("Qual a casa que quer verificar? ");
+        System.out.println("Qual a casa onde quer verificar? ");
         String nomeCasa = inputScanner.nextLine();
 
-        System.out.println("Qual o clube que pretende ver se existem jogos para apostar nesta casa?");
-            String equipa = inputScanner.nextLine();
+        for (Bookmaker c:listaDeCasas) {
+            if(c.getNome().equals(casa.getNome())){
+                System.out.println("Qual o clube que pretende ver se existem jogos para apostar nesta casa?");
+                String equipa = inputScanner.nextLine();
 
-           return casa.getNrGames().isMember(equipa);
+                if(casa.getNrGames().isMember(equipa)){
+                    System.out.println("A equipa " + equipa + " tem jogos disponíveis para apostar na casa " + casa);
+                }
+                else{
+                    System.out.println("A equipa " + equipa + " não tem jogos disponíveis para apostar na casa " + casa);
+                }
+            }
+
+        }
+
+
+
+
 
     }
 
     //TODO vamos precisar do ano na classe match para contar quantas vitórias a equipa conseguiu naquele ano
+    /*
     public static boolean calculaProbabilidadeDeSerCampeaoParaOAno(String equipa){
         Match jogosDataStructure[] = DatasetReader.readMatches();
 
     }
+    */
 
     public static void menu() {
 
@@ -178,6 +211,7 @@ public class CasaDeApostasMain {
             }
 
             switch (opcao) {
+
                 case 1:
                     Match jogosDataStructure[] = DatasetReader.readMatches();
                     ArrayList<Bookmaker> listaDeCasas = geraCasas(1, jogosDataStructure);
