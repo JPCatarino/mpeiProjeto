@@ -24,6 +24,11 @@ import static casasDeApostas.componentes.BetOption.Home;
 
 public class CasaDeApostasMain {
 
+    /**
+     * Main Function for out implementation.
+     * @param args
+     */
+
     public static void main(String[] args) {
         Scanner inputScanner = new Scanner(System.in);
         ArrayList<Bookmaker> listaDeCasas = new ArrayList<>();
@@ -124,6 +129,11 @@ public class CasaDeApostasMain {
         }while (true);
     }
 
+    /**
+     * Seleciona um conjunto de jogos random do conjunto total dos jogos.
+     * @param jogosDS
+     * @return Set com jogos aleatórios.
+     */
 
     public static Set<Match> selecionaConjuntoJogos(Match[] jogosDS) {
         int number = (int) (Math.random() * (jogosDS.length - 1) + (1));
@@ -137,6 +147,11 @@ public class CasaDeApostasMain {
         return conjuntoDeJoosDaCasa;
     }
 
+    /**
+     * Função para gerar casas. O utilizador pode escolher quantas casas quer gerar.
+     * @param jogosDS - Array com o total de jogos.
+     * @return ArrayList com casas geradas.
+     */
 
     public static ArrayList<Bookmaker> geraCasas(Match[] jogosDS) {
         Scanner input = new Scanner(System.in);
@@ -154,6 +169,14 @@ public class CasaDeApostasMain {
         return listaDeCasas;
     }
 
+    /**
+     * Função para estimar o número de jogos de um dado clube, para qual uma casa teria as odds corretas.
+     * Os jogos são retirados de outros datasets.
+     * @param bookie - Casa de Apostas
+     * @param fileName - Nome do dataset
+     * @param team - Clue
+     * @param gameState - Estado do jogo.
+     */
     public static void estimateAndPrintCorrectOdds(Bookmaker bookie, String fileName, String team, GameState gameState){
         LinkedList<Match> nrJogos = DatasetReader.readMatches(team, fileName);
         String trueTeam = bookie.findSimilarTeam(team);
@@ -234,6 +257,11 @@ public class CasaDeApostasMain {
 
     }
 
+    /**
+     * Verifica e imprime o resultado das apostas de um dado apostador.
+     * @param apostador
+     */
+
     public static void verificaUmaAposta(Gambler apostador){
         for(Bet b : apostador.getListaApostas()){
             System.out.println("Casa: " + b.getJogo().getHome_team() + " Golos: " + b.getJogo().getHome_score());
@@ -249,7 +277,11 @@ public class CasaDeApostasMain {
         }
     }
 
-
+    /**
+     * Função para fazer um dado apostador apostar num jogo.
+     * @param apostador
+     * @param casa
+     */
 
     public static void fazApostadorApostar(Gambler apostador, Bookmaker casa) {
         Scanner input = new Scanner(System.in);
@@ -271,9 +303,7 @@ public class CasaDeApostasMain {
                 System.out.println("Aposta no jogo " + jogo + "realizada com sucesso!");
                 haJogo = true;
 
-
             }
-
 
         }
         if(haJogo == false){

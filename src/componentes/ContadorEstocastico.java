@@ -9,7 +9,7 @@ package componentes;
 public class ContadorEstocastico{
 
     /**
-     * Método para duplicar o número de eventos que se podem contar. Incrementa-se o contador com probabilidade de 0.5
+     * Método para contar elementos dado uma probabilidade.
      * @param size Tamanho da estrutura de dados sobre a qual queremos contar elementos.
      * @param prob Probability you want to set up.
      */
@@ -26,6 +26,13 @@ public class ContadorEstocastico{
 
     }
 
+    /**
+     * Metodo para contar elementos dado um itnervalo de probabilidade
+     * @param max - Max do intervalo.
+     * @param min - min do intervalo.
+     * @param size - Numero de elementos.
+     * @return
+     */
     public static int contadorEstocasticoIntervalo(double max, double min, int size){
         int count = 0;
         for(int i=0; i<= size; i++){
