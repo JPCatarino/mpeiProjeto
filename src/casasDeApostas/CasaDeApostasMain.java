@@ -6,6 +6,7 @@ import componentes.CountingBloomFilter;
 import componentes.DatasetReader;
 import componentes.MinHash;
 
+import java.awt.print.Book;
 import java.util.*;
 
 import java.util.Set;
@@ -45,12 +46,49 @@ public class CasaDeApostasMain {
                 case 5:
                     System.out.println("");
                     break;
-
+                case 6:
+                    System.out.println("Insira o index da casa");
+                    int index = inputScanner.nextInt();
+                    if(!(listaDeCasas.size() <= index) || index < 0){
+                        Bookmaker casa = listaDeCasas.get(index);
+                        System.out.println("Insira o nome do clube");
+                        String team = inputScanner.next();
+                        System.out.println("Estado do Jogo: 1- Vitoria, 2- Empate, 3- Derrota");
+                        int ind = inputScanner.nextInt();
+                        GameState gameState = null;
+                        switch(ind){
+                            case 1:
+                                gameState = GameState.Win;
+                                break;
+                            case 2:
+                                gameState = GameState.Draw;
+                                break;
+                            case 3:
+                                gameState = GameState.Loss;
+                                break;
+                            default:
+                                System.err.println("Not a valid state");
+                                break;
+                        }
+                        System.out.println("Nome do dataset: ");
+                        String fileName = inputScanner.next();
+                        if(gameState != null) {
+                            estimateAndPrintCorrectOdds(casa, fileName, team, gameState);
+                        }
+                        else{
+                            System.err.println("Error: Select valid state");
+                        }
+                    }
+                    else{
+                        System.err.print("ERROR: There's no such index");
+                    }
+                    break;
                 case 10:
                     System.out.println("Programa terminado com sucesso!");
                     System.exit(0);
                 default:
                     System.err.println("Não é uma opção válida");
+                    break;
             }
         }while (true);
     }
@@ -87,8 +125,8 @@ public class CasaDeApostasMain {
         LinkedList<Match> nrJogos = DatasetReader.readMatches(team, fileName);
         String trueTeam = bookie.findSimilarTeam(team);
         if(!trueTeam.equals("")){
-            double prob = bookie.estimateCorrectMatches(trueTeam,nrJogos.size(),gameState);
-            System.out.printf("A casa tem probabilidade de acertar as odds em %f dos jogos da equipa %s no dataset fornecido", prob,team);
+            int prob = bookie.estimateCorrectMatches(trueTeam,nrJogos.size(),gameState);
+            System.out.printf("A casa tem probabilidade de acertar as odds em %d dos jogos da equipa %s no caso de %s no dataset fornecido\n", prob,team, gameState);
         }
         else{
             System.err.println("ERRO : Casa não possui jogos do clube " + team);

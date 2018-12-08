@@ -1,11 +1,9 @@
 package casasDeApostas.componentes;
 
 import componentes.CountingBloomFilter;
+import componentes.MinHash;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.Random;
+import java.util.*;
 
 /**
  * <h1>Gambler</h1>
@@ -13,21 +11,21 @@ import java.util.Random;
  */
 public class Gambler {
     private String nome;
-    private ArrayList<Bet> listaApostas;
-    private CountingBloomFilter<String> apostasCcorretas;
+    private Set<Bet> listaApostas;
+    private Set<Bet> listaApostasCorretas;
+    private CountingBloomFilter<Match> apostasCcorretas;
     private String clubeFavorito;
 
     /**
      * Class Constructor for Bookmaker, the place were you make bets.
      * @param nome Name of the Gambler.
-     * @param clubeFavorito The club that the Gambler supports.
-     * @param listaJogosEmQueApostou List of the matches the Gambler has placed a bet.
      */
 
-    public Gambler(String nome, String clubeFavorito, ArrayList<Bet> listaJogosEmQueApostou){
+    public Gambler(String nome){
         this.nome = nome;
         this.clubeFavorito = clubeFavorito;
-        this.listaApostas = listaJogosEmQueApostou;
+        this.listaApostas = new HashSet<>();
+        this.listaApostasCorretas = new HashSet<>();
         this.apostasCcorretas = new CountingBloomFilter<>(listaApostas.size()*15, 32, CountingBloomFilter.calculateOptimalK(listaApostas.size()*15,listaApostas.size()));
     }
 
@@ -37,11 +35,11 @@ public class Gambler {
 
 
 
-    public ArrayList<Bet> getListaApostas() {
+    public Set<Bet> getListaApostas() {
         return listaApostas;
     }
 
-    public CountingBloomFilter<String> getApostasCcorretas() {
+    public CountingBloomFilter<Match> getApostasCcorretas() {
         return apostasCcorretas;
     }
 
@@ -75,7 +73,62 @@ public class Gambler {
             Bet aposta = new Bet(jogo, BetOption.Draw);
             listaApostas.add(aposta);
         }
+        checkCorrectBets();
         return escolhaEquipa;
 
+    }
+
+    public static void compareTwoGamblers(Gambler g1, Gambler g2){
+        MinHash cmp = new MinHash(100);
+        Set<Bet> d1 = g1.getListaApostasCorretas();
+        Set<Bet> d2 = g2.getListaApostasCorretas();
+
+        HashMap<Bet, int[]> signatures = new HashMap<>();
+
+        for(Bet i : d1){
+            signatures.put(i, cmp.getSignature(MinHash.shingleTextPairs(i.toString())));
+        }
+        for(Bet i: d2){
+            signatures.put(i, cmp.getSignature(MinHash.shingleTextPairs(i.toString())));
+        }
+
+        double similarities[][] = new double[d1.size()][d2.size()];
+
+        for(int row = 0; row < d1.size(); row++){
+            for(int column = 0; column < d2.size(); column++){
+                similarities[row][column] = row > column ? 0 : cmp.calculateSimilarity(signatures.get(iterate(d1,row)), signatures.get(iterate(d2,column)));
+            }
+        }
+    }
+
+    private void checkCorrectBets(){
+        for(Bet i : listaApostas){
+            switch(i.getOpcao()){
+                case Home:
+                    if(i.getJogo().getHome_score() > i.getJogo().getAway_score()){
+                        listaApostasCorretas.add(i);
+                    }
+                case Draw:
+                    if(i.getJogo().getHome_score() == i.getJogo().getAway_score()){
+                        listaApostasCorretas.add(i);
+                    }
+                case Away:
+                    if(i.getJogo().getAway_score() > i.getJogo().getHome_score()){
+                        listaApostasCorretas.add(i);
+                    }
+            }
+        }
+    }
+
+    private static Bet iterate(Set<Bet> s, int i){
+        Iterator e = s.iterator();
+        while(i != 0){
+            e.next();
+        }
+        return (Bet)e.next();
+    }
+
+    public Set<Bet> getListaApostasCorretas() {
+        return listaApostasCorretas;
     }
 }
