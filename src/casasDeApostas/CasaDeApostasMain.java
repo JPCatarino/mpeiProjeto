@@ -75,7 +75,15 @@ public class CasaDeApostasMain {
     }
 
     public static void estimateAndPrintCorrectOdds(Bookmaker bookie, String fileName, String team, GameState gameState){
-        // TODO - Function to get amtches of a certain club out of dataset - DONE
+        LinkedList<Match> nrJogos = DatasetReader.readMatches(team, fileName);
+        String trueTeam = bookie.findSimilarTeam(team);
+        if(!trueTeam.equals("")){
+            double prob = bookie.estimateCorrectMatches(trueTeam,nrJogos.size(),gameState);
+            System.out.printf("A casa tem probabilidade de acertar as odds em %f dos jogos da equipa %s no dataset fornecido", prob,team);
+        }
+        else{
+            System.err.println("ERRO : Casa não possui jogos do clube " + team);
+        }
     }
 
     public static void listaCasas(ArrayList<Bookmaker> bookmakerList){
@@ -178,8 +186,11 @@ public class CasaDeApostasMain {
     }
 
     //TODO vamos precisar do ano na classe match para contar quantas vitórias a equipa conseguiu naquele ano
+
     /*
-    public static boolean calculaProbabilidadeDeSerCampeaoParaOAno(String equipa){
+
+    public static void calculaProbabilidadeDeSerCampeaoParaOAno(String equipa){
+
         Match jogosDataStructure[] = DatasetReader.readMatches();
 
     }
