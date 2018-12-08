@@ -175,8 +175,8 @@ public class Bookmaker {
         }
     }
 
-    public ArrayList listaJogosDeUmClube(Match j){
-        System.out.println("A equipa "+ j.);
+    public void verificaSeCasaTemJogosDoClube(String clube){
+        System.out.println(nrGames.isMember(clube));
     }
 
     @Override

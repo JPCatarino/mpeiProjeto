@@ -1,6 +1,7 @@
 package casasDeApostas;
 
 import casasDeApostas.componentes.*;
+import com.sun.org.apache.xpath.internal.SourceTree;
 import componentes.CountingBloomFilter;
 import componentes.DatasetReader;
 
@@ -11,6 +12,7 @@ import java.util.Set;
 public class CasaDeApostasMain {
 
     public static void main(String[] args) {
+        /*
         Match jogosDataStructure[] = DatasetReader.readMatches();
         ArrayList<Bookmaker> ListaDeCasas = geraCasas(3, jogosDataStructure);
 
@@ -37,6 +39,8 @@ public class CasaDeApostasMain {
                 Jorge.makeBet(j);
             }
         }
+        */
+        menu();
 
     }
 
@@ -94,12 +98,26 @@ public class CasaDeApostasMain {
            apostadores.add(a);
 
         }
-        System.out.println("Lista de Apostadores: \n");
+
         return apostadores;
 
     }
 
+    public  static void imprimeApostadores(ArrayList<Gambler> apostadores){
+        for (Gambler g: apostadores
+             ) {System.out.println(g);}
+    }
+
+    public static void fazApostadorApostar(Gambler apostador, Bookmaker casa, Match jogo){
+        do{
+            System.out.println("Qual o jogo em que quer que " + apostador + "aposte?");
+            
+        }while (!casa.isMemberCBF(jogo))
+
+    }
+
     public static void menu() {
+
         Scanner inputScanner = new Scanner(System.in);
         int opcao = -1;
 
@@ -110,7 +128,7 @@ public class CasaDeApostasMain {
             System.out.println("|| 1-> Gerar casas de apostas              ||");
             System.out.println("|| 2-> Listar as casas geradas             ||");
             System.out.println("|| 3-> Criar um apostador                  ||");
-            System.out.println("|| 4->                                     ||");
+            System.out.println("|| 4-> Fazer um jogador apostar            ||");
             System.out.println("|| 5->                                     ||");
             System.out.println("|| 6-> Terminar programa                   ||");
             System.out.println("---------------------------------------------");
@@ -125,13 +143,16 @@ public class CasaDeApostasMain {
 
             switch (opcao) {
                 case 1:
-
+                    Match jogosDataStructure[] = DatasetReader.readMatches();
+                    ArrayList<Bookmaker> listaDeCasas = geraCasas(1, jogosDataStructure);
+                    listaCasas(listaDeCasas);
                     break;
                 case 2:
 
                     break;
                 case 3:
-
+                    ArrayList<Gambler> listaDeApostadores =geraApostadores(1);
+                    imprimeApostadores(listaDeApostadores);
                     break;
                 case 4:
 

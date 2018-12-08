@@ -3,6 +3,7 @@ package casasDeApostas.componentes;
 import componentes.CountingBloomFilter;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Random;
 
@@ -45,6 +46,7 @@ public class Gambler {
     }
 
     public String makeBet(Match jogo) {
+
         String homeTeam = jogo.getHome_team();
         String awayTeam = jogo.getAway_team();
         String[] matchOptions = {homeTeam, awayTeam, "Draw"};
