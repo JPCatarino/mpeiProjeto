@@ -42,12 +42,14 @@ public class CasaDeApostasMain {
                     imprimeApostadores(listaDeApostadores);
 
                 case 5:
-
+                    System.out.println("");
                     break;
-                case 6:
+
+                case 10:
                     System.out.println("Programa terminado com sucesso!");
                     System.exit(0);
-
+                default:
+                    System.err.println("Não é uma opção válida");
             }
         }while (true);
     }
@@ -205,16 +207,17 @@ public class CasaDeApostasMain {
         Scanner inputScanner = new Scanner(System.in);
         int opcao = -1;
 
-        System.out.println("---------------------------------------------");
-        System.out.println("|||           Casas de Apostas           |||");
-        System.out.println("---------------------------------------------");
-        System.out.println("|| 1-> Gerar Casas de Apostas              ||");
-        System.out.println("|| 2-> Listar Casas de Apostas             ||");
-        System.out.println("|| 3-> Criar Apostadores via input         ||");
-        System.out.println("|| 4-> Criar Apostadores Aleatórios        ||");
-        System.out.println("|| 5-> Fazer uma Aposta                    ||");
-        System.out.println("|| 6-> Terminar programa                   ||");
-        System.out.println("---------------------------------------------");
+        System.out.println("----------------------------------------------");
+        System.out.println("|||           Casas de Apostas             |||");
+        System.out.println("----------------------------------------------");
+        System.out.println("|| 1-> Gerar Casas de Apostas               ||");
+        System.out.println("|| 2-> Listar Casas de Apostas              ||");
+        System.out.println("|| 3-> Criar Apostadores via input          ||");
+        System.out.println("|| 4-> Criar Apostadores Aleatórios         ||");
+        System.out.println("|| 5-> Fazer uma Aposta                     ||");
+        System.out.println("|| 6-> Estimar odds corretos                ||");
+        System.out.println("|| 10-> Terminar programa                   ||");
+        System.out.println("----------------------------------------------");
         System.out.print("Insira a sua opção->");
 
         return inputScanner.nextInt();
