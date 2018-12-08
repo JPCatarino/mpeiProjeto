@@ -58,6 +58,11 @@ public class Gambler {
                 '}';
     }
 
+    /**
+     * Method to create a random bet to given game.
+     * @param jogo - Game to create a bet for.
+     * @return
+     */
     public String makeBet(Match jogo) {
 
         String homeTeam = jogo.getHome_team();
@@ -84,29 +89,9 @@ public class Gambler {
 
     }
 
-    public static void compareTwoGamblers(Gambler g1, Gambler g2){
-        MinHash cmp = new MinHash(100);
-        Set<Bet> d1 = g1.getListaApostasCorretas();
-        Set<Bet> d2 = g2.getListaApostasCorretas();
-
-        HashMap<Bet, int[]> signatures = new HashMap<>();
-
-        for(Bet i : d1){
-            signatures.put(i, cmp.getSignature(MinHash.shingleTextPairs(i.toString())));
-        }
-        for(Bet i: d2){
-            signatures.put(i, cmp.getSignature(MinHash.shingleTextPairs(i.toString())));
-        }
-
-        double similarities[][] = new double[d1.size()][d2.size()];
-
-        for(int row = 0; row < d1.size(); row++){
-            for(int column = 0; column < d2.size(); column++){
-                similarities[row][column] = row > column ? 0 : cmp.calculateSimilarity(signatures.get(iterate(d1,row)), signatures.get(iterate(d2,column)));
-            }
-        }
-    }
-
+    /**
+     * Method to check which bets are correct. It get the state the gambler bet and compares the results of the game.
+     */
     private void checkCorrectBets(){
         for(Bet i : listaApostas){
             switch(i.getOpcao()){
@@ -124,16 +109,6 @@ public class Gambler {
                     }
             }
         }
-    }
-
-
-
-    private static Bet iterate(Set<Bet> s, int i){
-        Iterator e = s.iterator();
-        while(i != 0){
-            e.next();
-        }
-        return (Bet)e.next();
     }
 
     public Set<Bet> getListaApostasCorretas() {

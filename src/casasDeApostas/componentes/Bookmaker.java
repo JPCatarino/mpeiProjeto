@@ -60,7 +60,10 @@ public class Bookmaker {
         return correctDraws;
     }
 
-    //gera as odds para uma determinada equipa
+    /**
+     * Method to generate Random Odd. A odd is a random number between 0.1 and 12.
+     * @return Random odd
+     */
     private double oddGenerator(){
         return (Math.random()*(12- 0.1))+0.1;
    }
@@ -77,12 +80,25 @@ public class Bookmaker {
         return listaMatches;
     }
 
+    /**
+     * Method to create odds for each game of the Bookmaker. It stores them into a HashMap.
+     * @param listaJogos
+     */
+
     public void populateListaJogos(Set<Match> listaJogos){
         for(Match i : listaJogos){
             double aux[] = {oddGenerator(),oddGenerator(),oddGenerator()};
             this.listaJogos.put(i,aux);
         }
     }
+
+    /**
+     * Calculates the probability of the house giving a correct odd to a given team.
+     * This probability is calculated with the formula: Correct Games (Team) / Games(Team) for each state (Win, loss, Draw)
+     * @param equipa
+     * @param gameState
+     * @return Probability of Correct Odd
+     */
 
     public double probabilityOfCorrectOdd(String equipa, GameState gameState){
         if(nrGames.count(equipa)>0) {
@@ -110,6 +126,15 @@ public class Bookmaker {
         return correctOdds.isMember(toCheck);
     }
 
+    /**
+     * This function estimates the number of matches the bookmaker would have correct odds for a given team and state.
+     * It uses a stochastic counter, which is given the number of games and the probability of getting the odds correct.
+     * @param team
+     * @param size
+     * @param gameState
+     * @return Number of correct matches
+     */
+
     public int estimateCorrectMatches(String team, int size, GameState gameState){
         return ContadorEstocastico.contadorEstocastico(size, probabilityOfCorrectOdd(team, gameState));
     }
@@ -123,6 +148,9 @@ public class Bookmaker {
         }
     }
 
+    /**
+     * Method to find which matches the bookmaker had the odds correct and insert them in the respective bloom filters
+     */
     private void insertCorrectOdds() {
         Iterator iterator = listaJogos.entrySet().iterator();
         LinkedList<String> correctWins = new LinkedList<>(), correctDraws = new LinkedList<>(), correctLoss = new LinkedList<>();
@@ -196,6 +224,12 @@ public class Bookmaker {
         }
     }
 
+    /**
+     * Using user input, finds a similar team on the house. It uses MinHash to help find the similar team.
+     * @param team
+     * @return Similiar team name.
+     */
+
     public String findSimilarTeam(String team){
         MinHash cmp = new MinHash(100);
         int[] sigTeam = cmp.getSignature(MinHash.shingleTextPairs(team));
@@ -210,10 +244,6 @@ public class Bookmaker {
             }
         }
         return "";
-    }
-
-    public boolean verificarSeCasaTemJogosDoClube(String clube){
-        return nrGames.isMember(clube);
     }
 
     @Override
