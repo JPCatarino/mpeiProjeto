@@ -76,6 +76,25 @@ public class CasaDeApostasMain {
         }
     }
 
+    public static ArrayList<Gambler> geraApostadores(int n){
+        Scanner input = new Scanner(System.in);
+        ArrayList<Gambler> apostadores = new ArrayList<>();
+        for (int i=0; i<n; i++){
+            System.out.println("Nome: ");
+            String nome = input.nextLine();
+            System.out.println("Clube Favorito: ");
+            String clube = input.nextLine();
+            ArrayList<Bet> listaApostas = new ArrayList<>();
+            CountingBloomFilter<String> apostasCorretas = new CountingBloomFilter<>(2, 2, 2);
+            Gambler a = new Gambler(nome, clube, listaApostas, apostasCorretas);
+           apostadores.add(a);
+
+        }
+        System.out.println("Lista de Apostadores: \n");
+        return apostadores;
+
+    }
+
     public static void menu() {
         Scanner inputScanner = new Scanner(System.in);
         int opcao = -1;

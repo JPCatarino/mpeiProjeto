@@ -33,6 +33,26 @@ public class Bookmaker {
         insertCorrectOdds();
     }
 
+    public CountingBloomFilter<Match> getCorrectOdds() {
+        return correctOdds;
+    }
+
+    public CountingBloomFilter<String> getNrGames() {
+        return nrGames;
+    }
+
+    public CountingBloomFilter<String> getCorrectWins() {
+        return correctWins;
+    }
+
+    public CountingBloomFilter<String> getCorrectLoss() {
+        return correctLoss;
+    }
+
+    public CountingBloomFilter<String> getCorrectDraws() {
+        return correctDraws;
+    }
+
     //gera as odds para uma determinada equipa
     private double oddGenerator(){
         return (Math.random()*(12- 0.1))+0.1;
@@ -148,6 +168,10 @@ public class Bookmaker {
         for(String i : correctLoss){
             this.correctLoss.insertElem(i);
         }
+    }
+
+    public ArrayList listaJogosDeUmClube(Match j){
+        System.out.println("A equipa "+ j.);
     }
 
     @Override
