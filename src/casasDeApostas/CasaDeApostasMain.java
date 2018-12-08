@@ -111,11 +111,13 @@ public class CasaDeApostasMain {
 
     //´TODO DÚVIDA: A função makeBet() recebe um Match. Como fazer com que o utilizador escreva esse match?
     // Ou podemos fazer a função makeBet() receber o ID do jogo em que vamos aposyat?
-    public static void fazApostadorApostar(Gambler apostador, Bookmaker casa, Match jogo){
+    public static void fazApostadorApostar(Gambler apostador, Bookmaker casa, Match jogo, int idJogo){
+        Scanner input = new Scanner(System.in);
 
         HashMap<Match, double[]> jogosDaCasa = casa.getListaJogos();
         do{
             System.out.println("Qual o jogo em que quer que " + apostador + "aposte?");
+
 
         }while (!casa.isMemberCBF(jogo));
 
@@ -132,6 +134,10 @@ public class CasaDeApostasMain {
 
     }
 
+    public static boolean verificaSeCasaTemjogosDeClube(Bookmaker casa, String clube){
+        System.out.println("Qual o clube que pretende ver se existem jogos para apostar nesta casa?");
+    }
+
     public static void menu() {
 
         Scanner inputScanner = new Scanner(System.in);
@@ -141,10 +147,10 @@ public class CasaDeApostasMain {
             System.out.println("---------------------------------------------");
             System.out.println("|||           Casas de Apostas           |||");
             System.out.println("---------------------------------------------");
-            System.out.println("|| 1-> Gerar casas de apostas              ||");
-            System.out.println("|| 2-> Listar as casas geradas             ||");
-            System.out.println("|| 3-> Criar um apostador                  ||");
-            System.out.println("|| 4-> Fazer um jogador apostar            ||");
+            System.out.println("|| 1-> Gerar e Listar Casas de Apostas     ||");
+            System.out.println("|| 2-> Gerar e Listar Apostadores          ||");
+            System.out.println("|| 3-> Fazer um jogador apostar num jogo   ||");
+            System.out.println("|| 4->                                     ||");
             System.out.println("|| 5->                                     ||");
             System.out.println("|| 6-> Terminar programa                   ||");
             System.out.println("---------------------------------------------");
