@@ -58,7 +58,6 @@ public class CasaDeApostasMain {
         int number = (int) (Math.random() * (jogosDS.length - 1) + (1));
         // Match listaDeEJogosSDaCasa[]= new Match[number];
         Set<Match> conjuntoDeJoosDaCasa = new LinkedHashSet<Match>();
-        System.out.println(jogosDS.length);
 
         for (int i = 0; i < number; i++) {
             int n = new Random().nextInt(jogosDS.length);
