@@ -146,6 +146,12 @@ public class CasaDeApostasMain {
 
     }
 
+    //TODO vamos precisar do ano na classe match para contar quantas vitórias a equipa conseguiu naquele ano
+    public static boolean calculaProbabilidadeDeSerCampeaoParaOAno(String equipa){
+        Match jogosDataStructure[] = DatasetReader.readMatches();
+
+    }
+
     public static void menu() {
 
         Scanner inputScanner = new Scanner(System.in);
@@ -185,7 +191,7 @@ public class CasaDeApostasMain {
 
                     break;
                 case 3:
-                    
+
                     break;
                 case 4:
 

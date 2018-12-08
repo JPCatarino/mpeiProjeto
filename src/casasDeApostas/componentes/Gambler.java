@@ -17,6 +17,14 @@ public class Gambler {
     private CountingBloomFilter<String> apostasCcorretas;
     private String clubeFavorito;
 
+    /**
+     * Class Constructor for Bookmaker, the place were you make bets.
+     * @param nome Name of the Gambler.
+     * @param clubeFavorito The club that the Gambler supports.
+     * @param listaJogosEmQueApostou List of the matches the Gambler has placed a bet.
+     * @param apostasCcorretas List of bets from the Gambler that actually were correct and the winning team matches the bet option.
+     */
+
     public Gambler(String nome, String clubeFavorito, ArrayList<Bet> listaJogosEmQueApostou, CountingBloomFilter<String> apostasCcorretas){
         this.nome = nome;
         this.clubeFavorito = clubeFavorito;

@@ -16,12 +16,12 @@ public class Match {
 
     /**
      * Class Constructor for Match.
-     * @param home_team
-     * @param away_team
-     * @param home_score
-     * @param away_score
-     * @param id
-     *
+     * @param home_team Name of the team that plays at home in a game.
+     * @param away_team Name of the team that plays away in a game.
+     * @param home_score Number of goals the home team has scored in the match.
+     * @param away_score Number of goals the away team has scored in the match.
+     * @param id Match id in the dataset.
+     * @param liga Name of the Competition (League) where the match is played.
      */
     public Match(String home_team, int home_score, String away_team, int away_score, int id, String liga) {
         this.home_team = home_team;

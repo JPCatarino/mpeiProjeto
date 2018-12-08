@@ -22,6 +22,11 @@ public class Bookmaker {
     private CountingBloomFilter<String> correctLoss;        // Conta quantas vezes as odds estavam corretas para a derrota de uma equipa
     private CountingBloomFilter<String> correctDraws;       // Conta quantas vezes as odds estavam corretas para o empate de uma equipa
 
+   /**
+    * Class Constructor for Bookmaker, the place were you make bets.
+     * @param listaJogos List of matches that the Bookmaker offers you as options to bet.
+    */
+
     public Bookmaker(Set<Match> listaJogos){
         this.nome = nomes[new Random().nextInt(nomes.length)];
         this.listaJogos = new HashMap<>();

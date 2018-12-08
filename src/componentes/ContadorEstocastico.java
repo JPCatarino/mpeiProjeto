@@ -11,6 +11,7 @@ public class ContadorEstocastico{
     /**
      * Método para duplicar o número de eventos que se podem contar. Incrementa-se o contador com probabilidade de 0.5
      * @param size Tamanho da estrutura de dados sobre a qual queremos contar elementos.
+     * @param prob Probability you want to set up.
      */
     public static int contadorEstocastico(int size, double prob){
         int count = 0;
