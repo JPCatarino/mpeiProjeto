@@ -26,7 +26,7 @@ public class CasaDeApostasMain {
 
                 case 1:
                     Match jogosDataStructure[] = DatasetReader.readMatches();
-                    listaDeCasas = geraCasas(1, jogosDataStructure);
+                    listaDeCasas = geraCasas(jogosDataStructure);
 
                     break;
                 case 2:
@@ -35,18 +35,38 @@ public class CasaDeApostasMain {
 
                     break;
                 case 3:
-                    System.out.println("Quantos Apostadores quer gerar? ");
-                    int n = inputScanner.nextInt();
-                    listaDeApostadores = geraApostadores(n);
+                    listaDeApostadores = geraApostadoresInput();
 
                     break;
                 case 4:
-                    imprimeApostadores(listaDeApostadores);
+                    listaDeApostadores = geraApostadoresRandom();
+                    break;
+
 
                 case 5:
-                    System.out.println("");
+                    System.out.println("Qual o Apostador que vai apostar?");
+                    String apostador = inputScanner.nextLine();
+                    for (Gambler a: listaDeApostadores) {
+                        if(a.getNome().equals(apostador)){
+                            System.out.println("Em que casa " + apostador + " vai apostar?");
+                            String casa = inputScanner.nextLine();
+                            for (Bookmaker b: listaDeCasas) {
+                                if(b.getNome().equals(casa)){
+                                    fazApostadorApostar(a,b);
+                                }
+
+                            }
+
+                        }
+
+                    }
+
+
                     break;
                 case 6:
+                    imprimeApostadores(listaDeApostadores);
+                    break;
+                case 7:
                     System.out.println("Insira o index da casa");
                     int index = inputScanner.nextInt();
                     if(!(listaDeCasas.size() <= index) || index < 0){
@@ -110,13 +130,18 @@ public class CasaDeApostasMain {
     }
 
 
-    public static ArrayList<Bookmaker> geraCasas(int numeroDeCasas, Match[] jogosDS) {
+    public static ArrayList<Bookmaker> geraCasas(Match[] jogosDS) {
+        Scanner input = new Scanner(System.in);
+        System.out.println("Quantas casas de Apostas quer gerar?");
+        int n = input.nextInt();
+
         ArrayList<Bookmaker> listaDeCasas = new ArrayList<>();
 
-        for (int i = 0; i < numeroDeCasas; i++) {
+        for (int i = 0; i < n; i++) {
             Set<Match> jogosDaCasa = selecionaConjuntoJogos(jogosDS);
             Bookmaker casa = new Bookmaker(jogosDaCasa);
             listaDeCasas.add(casa);
+            System.out.println("Casa " + casa.getNome() + " gerada com sucesso!");
         }
         return listaDeCasas;
     }
@@ -134,23 +159,27 @@ public class CasaDeApostasMain {
     }
 
     public static void listaCasas(ArrayList<Bookmaker> bookmakerList){
+        int count =0;
         for (Bookmaker b: bookmakerList
              ) {
-            System.out.println(b.getNome());
+
+            System.out.printf(count +" "+ b.getNome() + "\n");
+            count++;
         }
     }
 
-    public static ArrayList<Gambler> geraApostadores(int n){
+    public static ArrayList<Gambler> geraApostadoresInput(){
         Scanner input = new Scanner(System.in);
+
+        System.out.println("Quantos Apostadores quer criar com input?");
+        int n = input.nextInt();
+
         ArrayList<Gambler> apostadores = new ArrayList<>();
         for (int i=0; i<n; i++){
             System.out.println("Nome: ");
-            String nome = input.nextLine();
-            System.out.println("Clube Favorito: ");
-            String clube = input.nextLine();
+            String nome = input.next();
             ArrayList<Bet> listaApostas = new ArrayList<>();
-            CountingBloomFilter<String> apostasCorretas = new CountingBloomFilter<>(2, 2, 2);
-            Gambler a = new Gambler(nome, clube, listaApostas);
+            Gambler a = new Gambler(nome, listaApostas);
            apostadores.add(a);
 
         }
@@ -159,39 +188,66 @@ public class CasaDeApostasMain {
 
     }
 
+    public static ArrayList<Gambler> geraApostadoresRandom(){
+        Scanner input = new Scanner(System.in);
+
+        System.out.println("Quantos utilizadores quer criar Aleatóriamente?");
+        int n = input.nextInt();
+        ArrayList<String> nomesAleatorios = DatasetReader.readNames();
+
+        ArrayList<Gambler> apostadores = new ArrayList<>();
+        for (int i=0; i<n; i++){
+            String nome = nomesAleatorios.get(new Random().nextInt(nomesAleatorios.size()));
+
+            ArrayList<Bet> listaApostas = new ArrayList<>();
+            Gambler a = new Gambler(nome,listaApostas);
+            apostadores.add(a);
+
+        }
+
+        return apostadores;
+
+    }
+
     public  static void imprimeApostadores(ArrayList<Gambler> apostadores){
+        int count = 0;
+        System.out.println("Lista de Apostadores: ");
         for (Gambler g: apostadores
-             ) {System.out.println(g);}
+             ) {System.out.println(count +" "+ g.getNome() + "\n");
+                count++;
+
+        }
     }
 
 
     //´TODO DÚVIDA: A função makeBet() recebe um Match. Como fazer com que o utilizador escreva esse match?
     // Ou podemos fazer a função makeBet() receber o ID do jogo em que vamos aposyat?
-    public static void fazApostadorApostar(Gambler apostador, Bookmaker casa){
+    public static void fazApostadorApostar(Gambler apostador, Bookmaker casa) {
         Scanner input = new Scanner(System.in);
+        boolean haJogo = false;
 
+        System.out.println("Qual o jogo em que quer que " + apostador + "aposte?\n");
 
-            System.out.println("Qual o jogo em que quer que " + apostador + "aposte?");
-            System.out.println("Formato: Equipa-casa, Equipa-fora");
-            String jogo = input.nextLine();
-            String[] match2Array = jogo.split(",");
-            String equipaCasa = casa.findSimilarTeam(match2Array[0]);
-            String equipaFora = casa.findSimilarTeam(match2Array[1]);
+        System.out.println("Formato: Equipa-casa, Equipa-fora");
+        String jogo = input.nextLine();
+        String[] match2Array = jogo.split(",");
+        String equipaCasa = casa.findSimilarTeam(match2Array[0]);
+        String equipaFora = casa.findSimilarTeam(match2Array[1]);
 
-        for (Match m: casa.getListaMatches()) {
-            if(m.getHome_team().equals(equipaCasa) && m.getAway_team().equals(equipaFora)){
+        for (Match m : casa.getListaMatches()) {
+            if (m.getHome_team().equals(equipaCasa) && m.getAway_team().equals(equipaFora)) {
                 apostador.makeBet(m);
                 System.out.println("Aposta no jogo " + jogo + "realizada com sucesso!");
+                haJogo = true;
+
+
+            }
+
 
         }
-
+        if(haJogo = false){
+            System.err.println("O jogo não existe na casa");
         }
-
-
-
-
-
-
 
     }
 
@@ -245,8 +301,9 @@ public class CasaDeApostasMain {
         System.out.println("|| 3-> Criar Apostadores via input          ||");
         System.out.println("|| 4-> Criar Apostadores Aleatórios         ||");
         System.out.println("|| 5-> Fazer uma Aposta                     ||");
-        System.out.println("|| 6-> Estimar odds corretos                ||");
-        System.out.println("|| 10-> Terminar programa                   ||");
+        System.out.println("|| 6-> Listar os Apostadores                ||");
+        System.out.println("|| 7-> Estimar odds corretos                ||");
+        System.out.println("|| 10->Terminar programa                    ||");
         System.out.println("----------------------------------------------");
         System.out.print("Insira a sua opção->");
 
