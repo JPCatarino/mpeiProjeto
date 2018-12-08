@@ -31,12 +31,9 @@ public class CasaDeApostasMain {
                 case 1:
                     Match jogosDataStructure[] = DatasetReader.readMatches();
                     listaDeCasas = geraCasas(jogosDataStructure);
-
                     break;
                 case 2:
                     listaCasas(listaDeCasas);
-
-
                     break;
                 case 3:
                     listaDeApostadores = geraApostadoresInput();
@@ -45,8 +42,6 @@ public class CasaDeApostasMain {
                 case 4:
                     listaDeApostadores = geraApostadoresRandom();
                     break;
-
-
                 case 5:
                     System.out.println("Qual o indice do Apostador que vai apostar?");
                     Gambler apostador = listaDeApostadores.get(inputScanner.nextInt());
@@ -95,25 +90,21 @@ public class CasaDeApostasMain {
                     }
                     break;
                 case 8:
-                    System.out.println("De que Apostador pretender ver a lista de Apostas?");
-                    String apostador1 = inputScanner.nextLine();
-                    for (Gambler a: listaDeApostadores) {
-                        if (a.getNome().equals(apostador1)) {
-                            listaApostasDeApostador(a);
-                        }
-                    }
-                       break;
+                    System.out.println("De que Apostador pretender ver a lista de Apostas? (indice)");
+                    listaApostasDeApostador(listaDeApostadores.get(inputScanner.nextInt()));
+                    break;
                 case 9:
-                    System.out.println("De que Apostador pretender ver a lista de Apostas?");
-                    String apostador2 = inputScanner.nextLine();
-                    for (Gambler a: listaDeApostadores) {
-                        if (a.getNome().equals(apostador2)) {
-                            verificaUmaAposta(a);
-                        }
-                    }
-
-
+                    System.out.println("De que Apostador pretender ver a lista de Apostas? (indice)");
+                    verificaUmaAposta(listaDeApostadores.get(inputScanner.nextInt()));
+                    break;
                 case 10:
+                    System.out.println("Qual o indice do Apostador que vai apostar?");
+                    Gambler a = listaDeApostadores.get(inputScanner.nextInt());
+                    System.out.println("Em que casa " + a + " vai apostar? (por indice)");
+                    Bookmaker bb = listaDeCasas.get(inputScanner.nextInt());
+                    generateRandomBets(a,bb);
+                    break;
+                case 11:
                     System.out.println("Programa terminado com sucesso!");
                     System.exit(0);
                 default:
@@ -280,9 +271,15 @@ public class CasaDeApostasMain {
 
     }
 
+    public static void generateRandomBets(Gambler g, Bookmaker b){
+        for(Match m : b.getListaMatches()){
+            g.makeBet(m);
+        }
+    }
 
 
-    public void verificaSeCasaTemjogosDeClube(Bookmaker casa, ArrayList<Bookmaker> listaDeCasas){
+
+    public static void verificaSeCasaTemjogosDeClube(Bookmaker casa, ArrayList<Bookmaker> listaDeCasas){
         Scanner inputScanner = new Scanner(System.in);
         System.out.println("Qual a casa onde quer verificar? ");
         String nomeCasa = inputScanner.nextLine();
@@ -309,19 +306,20 @@ public class CasaDeApostasMain {
         Scanner inputScanner = new Scanner(System.in);
         int opcao = -1;
 
-        System.out.println("----------------------------------------------");
-        System.out.println("|||           Casas de Apostas              |||");
-        System.out.println("-----------------------------------------------");
-        System.out.println("|| 1-> Gerar Casas de Apostas                ||");
-        System.out.println("|| 2-> Listar Casas de Apostas               ||");
-        System.out.println("|| 3-> Criar Apostadores via input           ||");
-        System.out.println("|| 4-> Criar Apostadores Aleatórios          ||");
-        System.out.println("|| 5-> Fazer uma Aposta                      ||");
-        System.out.println("|| 6-> Listar os Apostadores                 ||");
-        System.out.println("|| 7-> Estimar odds corretos                 ||");
-        System.out.println("|| 8-> Listar Apostas feitas por um Apostador||");
-        System.out.println("|| 9-> Verificar se uma aposta está correta  ||");
-        System.out.println("|| 10->Terminar programa                     ||");
+        System.out.println("------------------------------------------------");
+        System.out.println("|||            Casas de Apostas              |||");
+        System.out.println("------------------------------------------------");
+        System.out.println("|| 1->  Gerar Casas de Apostas                ||");
+        System.out.println("|| 2->  Listar Casas de Apostas               ||");
+        System.out.println("|| 3->  Criar Apostadores via input           ||");
+        System.out.println("|| 4->  Criar Apostadores Aleatórios          ||");
+        System.out.println("|| 5->  Fazer uma Aposta                      ||");
+        System.out.println("|| 6->  Listar os Apostadores                 ||");
+        System.out.println("|| 7->  Estimar odds corretos                 ||");
+        System.out.println("|| 8->  Listar Apostas feitas por um Apostador||");
+        System.out.println("|| 9->  Verificar se uma aposta está correta  ||");
+        System.out.println("|| 10-> Gerar Apostas Aleatórias              ||");
+        System.out.println("|| 11-> Terminar programa                     ||");
         System.out.println("-----------------------------------------------");
         System.out.print("Insira a sua opção->");
 
