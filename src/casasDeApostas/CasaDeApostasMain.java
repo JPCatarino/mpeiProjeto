@@ -136,10 +136,13 @@ public class CasaDeApostasMain {
 
     public static boolean verificaSeCasaTemjogosDeClube(Bookmaker casa){
         Scanner inputScanner = new Scanner(System.in);
+        System.out.println("Qual a casa que quer verificar? ");
+        String nomeCasa = inputScanner.nextLine();
+
         System.out.println("Qual o clube que pretende ver se existem jogos para apostar nesta casa?");
             String equipa = inputScanner.nextLine();
 
-            casa.getNrGames().isMember(equipa);
+           return casa.getNrGames().isMember(equipa);
 
     }
 
@@ -175,11 +178,14 @@ public class CasaDeApostasMain {
                     listaCasas(listaDeCasas);
                     break;
                 case 2:
+                    System.out.println("Quantos Apostadores quer gerar? ");
+                    int n = inputScanner.nextInt();
+                    ArrayList<Gambler> listaDeApostadores =geraApostadores(n);
+                    imprimeApostadores(listaDeApostadores);
 
                     break;
                 case 3:
-                    ArrayList<Gambler> listaDeApostadores =geraApostadores(1);
-                    imprimeApostadores(listaDeApostadores);
+                    
                     break;
                 case 4:
 

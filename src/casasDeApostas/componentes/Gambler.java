@@ -15,9 +15,11 @@ public class Gambler {
     private String nome;
     private ArrayList<Bet> listaApostas;
     private CountingBloomFilter<String> apostasCcorretas;
+    private String clubeFavorito;
 
     public Gambler(String nome, String clubeFavorito, ArrayList<Bet> listaJogosEmQueApostou, CountingBloomFilter<String> apostasCcorretas){
         this.nome = nome;
+        this.clubeFavorito = clubeFavorito;
         this.listaApostas = listaJogosEmQueApostou;
         this.apostasCcorretas = apostasCcorretas;
     }
@@ -36,10 +38,13 @@ public class Gambler {
         return apostasCcorretas;
     }
 
+    public String getClubeFavorito() { return clubeFavorito; }
+
     @Override
     public String toString() {
         return "Gambler{" +
                 "nome='" + nome + '\'' +
+                ", clubeFavorito=" + clubeFavorito +
                 ", listaApostas=" + listaApostas +
                 ", apostasCcorretas=" + apostasCcorretas +
                 '}';
