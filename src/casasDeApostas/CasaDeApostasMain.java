@@ -105,6 +105,9 @@ public class CasaDeApostasMain {
                     generateRandomBets(a,bb);
                     break;
                 case 11:
+                    verificaSeCasaTemjogosDeClube(listaDeCasas);
+                    break;
+                case 12:
                     System.out.println("Programa terminado com sucesso!");
                     System.exit(0);
                 default:
@@ -250,7 +253,7 @@ public class CasaDeApostasMain {
         System.out.println("Qual o jogo em que quer que " + apostador.getNome() + "aposte?\n");
 
         System.out.println("Formato: Equipa-casa, Equipa-fora");
-        String jogo = input.nextLine();
+        String jogo = input.next();
         String[] match2Array = jogo.split(",");
         String equipaCasa = casa.findSimilarTeam(match2Array[0]);
         String equipaFora = casa.findSimilarTeam(match2Array[1]);
@@ -279,25 +282,18 @@ public class CasaDeApostasMain {
     }
 
 
-
-    public static void verificaSeCasaTemjogosDeClube(Bookmaker casa, ArrayList<Bookmaker> listaDeCasas){
+    public static void verificaSeCasaTemjogosDeClube(ArrayList<Bookmaker> listaDeCasas) {
         Scanner inputScanner = new Scanner(System.in);
-        System.out.println("Qual a casa onde quer verificar? ");
-        String nomeCasa = inputScanner.nextLine();
+        System.out.println("Qual a casa onde quer verificar? (indice)");
+        Bookmaker casa = listaDeCasas.get(inputScanner.nextInt());
+        System.out.println("Qual o clube que pretende ver se existem jogos para apostar nesta casa?");
+        String equipa = inputScanner.next();
+        String trueEquipa = casa.findSimilarTeam(equipa);
 
-        for (Bookmaker c:listaDeCasas) {
-            if(c.getNome().equals(casa.getNome())){
-                System.out.println("Qual o clube que pretende ver se existem jogos para apostar nesta casa?");
-                String equipa = inputScanner.nextLine();
-
-                if(casa.getNrGames().isMember(equipa)){
-                    System.out.println("A equipa " + equipa + " tem jogos disponíveis para apostar na casa " + casa);
-                }
-                else{
-                    System.out.println("A equipa " + equipa + " não tem jogos disponíveis para apostar na casa " + casa);
-                }
-            }
-
+        if (casa.getNrGames().isMember(trueEquipa)) {
+            System.out.println("A equipa " + trueEquipa + " tem "+ casa.getNrGames().count(trueEquipa) + " jogos disponíveis para apostar na casa " + casa.getNome());
+        } else {
+            System.out.println("A equipa " + trueEquipa + " não tem jogos disponíveis para apostar na casa " + casa.getNome());
         }
     }
 
@@ -320,7 +316,8 @@ public class CasaDeApostasMain {
         System.out.println("|| 8->  Listar Apostas feitas por um Apostador||");
         System.out.println("|| 9->  Verificar se uma aposta está correta  ||");
         System.out.println("|| 10-> Gerar Apostas Aleatórias              ||");
-        System.out.println("|| 11-> Terminar programa                     ||");
+        System.out.println("|| 11-> Verificar se casa tem equipa          ||");
+        System.out.println("|| 12-> Terminar programa                     ||");
         System.out.println("-----------------------------------------------");
         System.out.print("Insira a sua opção->");
 
