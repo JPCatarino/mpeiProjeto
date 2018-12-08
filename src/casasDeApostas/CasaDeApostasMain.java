@@ -15,6 +15,13 @@ import static casasDeApostas.componentes.BetOption.Away;
 import static casasDeApostas.componentes.BetOption.Draw;
 import static casasDeApostas.componentes.BetOption.Home;
 
+/**
+ * <h1>CasaDeApostasMain</h1>
+ * Main program, where the interface with the user is made throughout a menu.
+ * @author Jorge Catarino
+ * @author Oscar Pimentel
+ */
+
 public class CasaDeApostasMain {
 
     public static void main(String[] args) {
@@ -253,7 +260,7 @@ public class CasaDeApostasMain {
         System.out.println("Qual o jogo em que quer que " + apostador.getNome() + "aposte?\n");
 
         System.out.println("Formato: Equipa-casa, Equipa-fora");
-        String jogo = input.next();
+        String jogo = input.nextLine();
         String[] match2Array = jogo.split(",");
         String equipaCasa = casa.findSimilarTeam(match2Array[0]);
         String equipaFora = casa.findSimilarTeam(match2Array[1]);

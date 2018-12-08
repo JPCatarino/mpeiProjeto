@@ -8,6 +8,7 @@ import java.util.BitSet;
  * if a elements belongs to a set of E. Also makes it possible to count the instances of a certain element.
  * This implementation is based on the classic Counting Bloom Filter, using a bit counters.
  * @author Jorge Catarino
+ * @author Oscar Pimentel
  */
 
 public class CountingBloomFilter<E> {
