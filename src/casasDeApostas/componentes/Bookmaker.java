@@ -88,17 +88,22 @@ public class Bookmaker {
         if(nrGames.count(equipa)>0) {
             switch (gameState) {
                 case Win:
-                    if(listaJogosPorEquipa.get(equipa)[0] > 0)
-                        return correctWins.count(equipa) / listaJogosPorEquipa.get(equipa)[0];
+                    if(listaJogosPorEquipa.get(equipa)[0] > 0){
+                        return (double)correctWins.count(equipa)/ (double)listaJogosPorEquipa.get(equipa)[0];
+                    }
                 case Draw:
                     if(listaJogosPorEquipa.get(equipa)[1] > 0)
-                        return correctDraws.count(equipa) / listaJogosPorEquipa.get(equipa)[1];
+                        return (double) correctDraws.count(equipa) / (double) listaJogosPorEquipa.get(equipa)[1];
                 case Loss:
                     if(listaJogosPorEquipa.get(equipa)[2] > 0)
-                        return correctLoss.count(equipa) / listaJogosPorEquipa.get(equipa)[2];
+                        return (double)correctLoss.count(equipa) / (double)listaJogosPorEquipa.get(equipa)[2];
             }
         }
         return 0;
+    }
+
+    public HashMap<String, int[]> getListaJogosPorEquipa() {
+        return listaJogosPorEquipa;
     }
 
     public boolean isMemberCBF(Match toCheck){
@@ -170,9 +175,15 @@ public class Bookmaker {
                         }
                 }
             }
-        this.correctWins = new CountingBloomFilter<>(correctWins.size() * 15, 32, CountingBloomFilter.calculateOptimalK(correctWins.size() * 15, correctWins.size()));
-        this.correctDraws = new CountingBloomFilter<>(correctDraws.size() * 15, 32, CountingBloomFilter.calculateOptimalK(correctDraws.size() * 15, correctDraws.size()));
-        this.correctLoss = new CountingBloomFilter<>(correctLoss.size() * 15, 32, CountingBloomFilter.calculateOptimalK(correctLoss.size() * 15, correctLoss.size()));
+        if(correctWins.size() > 0) {
+            this.correctWins = new CountingBloomFilter<>(correctWins.size() * 15, 32, CountingBloomFilter.calculateOptimalK(correctWins.size() * 15, correctWins.size()));
+        }
+        if(correctDraws.size() > 0) {
+            this.correctDraws = new CountingBloomFilter<>(correctDraws.size() * 15, 32, CountingBloomFilter.calculateOptimalK(correctDraws.size() * 15, correctDraws.size()));
+        }
+        if(correctLoss.size() > 0) {
+            this.correctLoss = new CountingBloomFilter<>(correctLoss.size() * 15, 32, CountingBloomFilter.calculateOptimalK(correctLoss.size() * 15, correctLoss.size()));
+        }
 
         for(String i : correctWins){
             this.correctWins.insertElem(i);

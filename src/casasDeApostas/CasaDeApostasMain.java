@@ -151,7 +151,7 @@ public class CasaDeApostasMain {
         String trueTeam = bookie.findSimilarTeam(team);
         if(!trueTeam.equals("")){
             int prob = bookie.estimateCorrectMatches(trueTeam,nrJogos.size(),gameState);
-            System.out.printf("A casa tem probabilidade de acertar as odds em %d dos jogos da equipa %s no caso de %s no dataset fornecido\n", prob,team, gameState);
+            System.out.println("A casa tem probabilidade de acertar as odds em " + prob + " dos jogos da equipa " + trueTeam + " no caso de " + gameState + " no dataset fornecido");
         }
         else{
             System.err.println("ERRO : Casa não possui jogos do clube " + team);
