@@ -11,6 +11,10 @@ import java.util.*;
 
 import java.util.Set;
 
+import static casasDeApostas.componentes.BetOption.Away;
+import static casasDeApostas.componentes.BetOption.Draw;
+import static casasDeApostas.componentes.BetOption.Home;
+
 public class CasaDeApostasMain {
 
     public static void main(String[] args) {
@@ -103,6 +107,25 @@ public class CasaDeApostasMain {
                         System.err.print("ERROR: There's no such index");
                     }
                     break;
+                case 8:
+                    System.out.println("De que Apostador pretender ver a lista de Apostas?");
+                    String apostador1 = inputScanner.nextLine();
+                    for (Gambler a: listaDeApostadores) {
+                        if (a.getNome().equals(apostador1)) {
+                            listaApostasDeApostador(a);
+                        }
+                    }
+                       break;
+                case 9:
+                    System.out.println("De que Apostador pretender ver a lista de Apostas?");
+                    String apostador2 = inputScanner.nextLine();
+                    for (Gambler a: listaDeApostadores) {
+                        if (a.getNome().equals(apostador2)) {
+                            verificaUmaAposta(a);
+                        }
+                    }
+
+
                 case 10:
                     System.out.println("Programa terminado com sucesso!");
                     System.exit(0);
@@ -218,10 +241,43 @@ public class CasaDeApostasMain {
 
         }
     }
+    public static void listaApostasDeApostador(Gambler apostador){
+        for (Bet b: apostador.getListaApostas()
+                ) {
+            System.out.println(b);
+
+        }
+
+    }
+
+    public static void verificaUmaAposta(Gambler apostador){
+        for (Bet b:apostador.getListaApostas()
+             ) {
+            BetOption opcao = b.getOpcao();
+            if(opcao.equals(Home)){
+                if(b.getJogo().getHome_score() > b.getJogo().getAway_score()) {
+                    System.out.println("Apostador acertou na aposta!!");
+                }
+                else System.out.println("Jogador errou a aposta");
+            }
+            if(opcao.equals(Away)){
+                if(b.getJogo().getHome_score() < b.getJogo().getAway_score()) {
+                    System.out.println("Apostador acertou na aposta!!");
+                }
+                else System.out.println("Jogador errou a aposta");
+            }
+            if(opcao.equals(Draw)){
+                if(b.getJogo().getHome_score() == b.getJogo().getAway_score()) {
+                    System.out.println("Apostador acertou na aposta!!");
+                }
+                else System.out.println("Jogador errou a aposta");
+            }
+
+        }
+    }
 
 
-    //´TODO DÚVIDA: A função makeBet() recebe um Match. Como fazer com que o utilizador escreva esse match?
-    // Ou podemos fazer a função makeBet() receber o ID do jogo em que vamos aposyat?
+
     public static void fazApostadorApostar(Gambler apostador, Bookmaker casa) {
         Scanner input = new Scanner(System.in);
         boolean haJogo = false;
@@ -239,7 +295,7 @@ public class CasaDeApostasMain {
         for (Match m : casa.getListaMatches()) {
             if (m.getHome_team().equals(equipaCasa) && m.getAway_team().equals(equipaFora)) {
                 apostador.makeBet(m);
-                System.out.println("Aposta no jogo " + jogo + " realizada com sucesso!");
+                System.out.println("Aposta no jogo " + jogo + "realizada com sucesso!");
                 haJogo = true;
 
 
@@ -252,6 +308,8 @@ public class CasaDeApostasMain {
         }
 
     }
+
+
 
     public void verificaSeCasaTemjogosDeClube(Bookmaker casa, ArrayList<Bookmaker> listaDeCasas){
         Scanner inputScanner = new Scanner(System.in);
@@ -296,17 +354,19 @@ public class CasaDeApostasMain {
         int opcao = -1;
 
         System.out.println("----------------------------------------------");
-        System.out.println("|||           Casas de Apostas             |||");
-        System.out.println("----------------------------------------------");
-        System.out.println("|| 1-> Gerar Casas de Apostas               ||");
-        System.out.println("|| 2-> Listar Casas de Apostas              ||");
-        System.out.println("|| 3-> Criar Apostadores via input          ||");
-        System.out.println("|| 4-> Criar Apostadores Aleatórios         ||");
-        System.out.println("|| 5-> Fazer uma Aposta                     ||");
-        System.out.println("|| 6-> Listar os Apostadores                ||");
-        System.out.println("|| 7-> Estimar odds corretos                ||");
-        System.out.println("|| 10->Terminar programa                    ||");
-        System.out.println("----------------------------------------------");
+        System.out.println("|||           Casas de Apostas              |||");
+        System.out.println("-----------------------------------------------");
+        System.out.println("|| 1-> Gerar Casas de Apostas                ||");
+        System.out.println("|| 2-> Listar Casas de Apostas               ||");
+        System.out.println("|| 3-> Criar Apostadores via input           ||");
+        System.out.println("|| 4-> Criar Apostadores Aleatórios          ||");
+        System.out.println("|| 5-> Fazer uma Aposta                      ||");
+        System.out.println("|| 6-> Listar os Apostadores                 ||");
+        System.out.println("|| 7-> Estimar odds corretos                 ||");
+        System.out.println("|| 8-> Listar Apostas feitas por um Apostador||");
+        System.out.println("|| 9-> Verificar se uma aposta está correta  ||");
+        System.out.println("|| 10->Terminar programa                     ||");
+        System.out.println("-----------------------------------------------");
         System.out.print("Insira a sua opção->");
 
         return inputScanner.nextInt();

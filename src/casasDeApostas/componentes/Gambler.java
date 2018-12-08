@@ -5,6 +5,8 @@ import componentes.MinHash;
 
 import java.util.*;
 
+import static casasDeApostas.componentes.BetOption.*;
+
 /**
  * <h1>Gambler</h1>
  * @author Oscar Pimentel
@@ -63,13 +65,16 @@ public class Gambler {
         String escolhaEquipa = matchOptions[new Random().nextInt(matchOptions.length)];
 
         if (escolhaEquipa.equals(jogo.getHome_team())) {
-            Bet aposta = new Bet(jogo, BetOption.Home);
+            Bet aposta = new Bet(jogo, Home);
             listaApostas.add(aposta);
+            System.out.println("Aposta feita na equipa da casa.");
         } else if (escolhaEquipa.equals(jogo.getAway_team())) {
             Bet aposta = new Bet(jogo, BetOption.Away);
             listaApostas.add(aposta);
+            System.out.println("Aposta feita na equipa de fora.");
         } else if (escolhaEquipa.equals("Draw")) {
             Bet aposta = new Bet(jogo, BetOption.Draw);
+            System.out.println("Aposta feita no empate.");
             listaApostas.add(aposta);
         }
         checkCorrectBets();
@@ -118,6 +123,8 @@ public class Gambler {
             }
         }
     }
+
+
 
     private static Bet iterate(Set<Bet> s, int i){
         Iterator e = s.iterator();
